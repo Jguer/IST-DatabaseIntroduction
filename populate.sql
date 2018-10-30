@@ -13,6 +13,18 @@ values (293121444,
 
 
 insert into person (VAT,name,address_street,address_city,address_zip)
+values (391286572,
+        'John Smith',
+        'Rua da Buraca 4',
+        'Buraca',
+        '1904-192');
+
+
+insert into client (VAT)
+values (391286572);
+
+
+insert into person (VAT,name,address_street,address_city,address_zip)
 values (493232134,
         'Jorge Serra',
         'Rua da Damaia,2, Damaia',
@@ -104,6 +116,10 @@ insert into client (VAT)
 values (692323322);
 
 
+insert into assistant (VAT)
+values (692323322);
+
+
 insert into person (VAT,name,address_street,address_city,address_zip)
 values (121212746,
         'Ricardo Pereira',
@@ -134,6 +150,10 @@ values ("tibetan mastiff",
 insert into species (name,description)
 values ("mastiff",
         "not tibetan");
+
+insert into species (name,description)
+values ("baiano",
+        "From the warm waters");
 
 
 insert into species (name,description)
@@ -209,3 +229,38 @@ values ("poe",
         "female",
         2002,
         16);
+
+insert into animal
+values ("smithy",
+        391286572,
+        "baiano",
+        "milky white",
+        "female",
+        2002,
+        16);
+
+
+insert into diagnosis_code
+values (0,
+        "kidney failure");
+
+
+insert into diagnosis_code
+values (1,
+        "renal insufficiency");
+
+
+insert into diagnosis_code
+values (2,
+        "pulmonary failure");
+
+
+insert into diagnosis_code
+values (3,
+        "heart failure");
+
+
+insert into diagnosis_code
+values (4,
+        "lice");
+
