@@ -1,40 +1,65 @@
-/* 1 */ /* Falta ligar person ao vet data */
-SELECT animal.name,
-       animal.species_name,
-       person.name,
-       animal.age
-FROM animal
-JOIN client ON animal.VAT = client.VAT
-JOIN person ON animal.VAT = person.VAT
-WHERE person.name == 'John Smith';
+/* 1 */
+select animal.name,
+       owner.name,
+       animal.species_name
+#       animal.age
+from animal, person as vet, consult, person as owner
+where vet.name = "John Smith" and 
+      consult.vat_vet = vet.vat and
+      consult.name = animal.name and
+      consult.vat_owner = animal.vat and
+      consult.vat_owner = owner.vat; 
 
 /* 2 */
-SELECT name,
-       reference_value
-FROM
-indicator
-WHERE units = 'milligrams'
-  AND reference_value > 100
-ORDER BY reference_value DESC;
+select name, reference_value
+from indicator
+where units = 'milligrams' and reference_value > 100
+order by reference_value desc;
+
 
 /* 3 */
-SELECT animal.name,
-       animal.species_name,
+select animal.name,
        person.name,
-       animal.age
-FROM consult
-JOIN client ON consult.VAT = client.VAT
-JOIN person ON consult.VAT = person.VAT
-JOIN animal ON consult.VAT = animal.VAT
-WHERE consult.weight > 30
-  AND consult.o LIKE 'obes%';
+       animal.species_name
+#      animal.age
+from animal, person, consult as c1
+where animal.vat = person.vat and
+      c1.vat_owner = animal.vat and
+      c1.weight > 30 and
+      (c1.o like "%obese%" or c1.o like "%obesity%") and
+      c1.date_timestamp >= all (select c2.date_timestamp
+                                from consult as c2
+                                where c2.name = c1.name);
 
-/* 4 */
-SELECT person.name,
-       person.vat,
-       person.address_street
-FROM person
-left join animal on person.VAT = animal.VAT
-where animal.VAT is null;
+/* 4 */ 
+select N.name,
+       N.vat,
+       N.address_street
+from person as N, client
+where N.vat = client.vat and 
+not exists (
+           select animal.vat
+           from animal
+           where animal.vat = N.vat);
 
-/* se nao funcionar where not exists(select null from table2 t2 where t2.id = t1.id) */ /* 5 */ /* 6 */ /* 7 */ /* 8 */ /* 9 */
+/* 5 */
+select diagnosis_code.name, count(distinct prescription.med_name)
+from prescription, diagnosis_code
+where prescription.code = diagnosis_code.code
+group by diagnosis_code.name;
+
+/* 6 */
+#select species_name, diagnosis_code.code
+#from species, animal, diagnosis_code
+#where 
+
+/* 8 */
+select distinct * from 
+(select person.name
+from person, animal, consult
+where person.vat = animal.vat or person.vat = consult.vat_client) as p1
+inner join
+(select person.name
+from person, veterinary, assistant
+where person.vat = veterinary.vat or person.vat = assistant.vat) as p2
+on p1.name = p2.name;
