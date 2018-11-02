@@ -1,5 +1,5 @@
 /* 1 */
-select animal.name,
+select distinct animal.name,
        owner.name,
        animal.species_name
 #       animal.age
@@ -49,9 +49,10 @@ where prescription.code = diagnosis_code.code
 group by diagnosis_code.name;
 
 /* 6 */
-#select species_name, diagnosis_code.code
-#from species, animal, diagnosis_code
-#where 
+
+
+/* 7 */
+
 
 /* 8 */
 select distinct * from 
@@ -63,3 +64,16 @@ inner join
 from person, veterinary, assistant
 where person.vat = veterinary.vat or person.vat = assistant.vat) as p2
 on p1.name = p2.name;
+
+/* 9 */
+select distinct person.name, person.address_street
+from person, client
+where not exists (
+                  select animal.name
+                  from animal
+                  where animal.vat = person.vat and
+                        animal.species_name not like "%bird%") and
+      exists (
+              select animal.name
+              from animal
+              where animal.vat = person.vat);

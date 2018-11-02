@@ -264,7 +264,7 @@ values ("kafka",
 insert into animal
 values ("ferdinand",
         146252131,
-        "Cao de agua",
+        "cao de agua",
         "grey",
         "male",
         2017);
@@ -328,9 +328,34 @@ values (5,
         "tartarus");
 
 insert into consult
+values ("gros bobi",
+        482121911,
+        "2017-04-15 13:13:13",
+        "s",
+        "suffers obesity",
+        "a",
+        "p",
+        587823329,
+        293121444,
+        31);
+
+
+insert into consult
+values ("gros bobi",
+        482121911,
+        "2017-04-30 13:13:13",
+        "s",
+        "no more obesity",
+        "a",
+        "p",
+        482121911,
+        293121444,
+        29);
+
+insert into consult
 values ("blackie",
         121212746,
-        "2018-08-04 09:00:00",
+        "2017-08-04 09:00:00",
         "s",
         "already obese",
         "a",
@@ -342,7 +367,7 @@ values ("blackie",
 insert into consult
 values ("blackie",
         121212746,
-        "2018-07-04 14:00:00",
+        "2017-07-04 14:00:00",
         "s",
         "not yet obese",
         "a",
@@ -354,7 +379,7 @@ values ("blackie",
 insert into consult
 values ("bobi",
         482121911,
-        "2018-1-11 09:00:00",
+        "2017-1-11 09:00:00",
         "s",
         "o",
         "a",
@@ -366,7 +391,7 @@ values ("bobi",
 insert into consult
 values ("socio",
         493232134,
-        "2018-10-31 18:07:15",
+        "2017-10-31 18:07:15",
         "s",
         "o",
         "a",
@@ -378,7 +403,7 @@ values ("socio",
 insert into consult
 values ("joli",
         921383212,
-        "2018-10-31 15:28:15",
+        "2017-10-31 15:28:15",
         "s",
         "o",
         "a",
@@ -390,7 +415,7 @@ values ("joli",
 insert into consult
 values ("smithy",
         391286572,
-        "2018-09-05 10:21:15",
+        "2017-09-05 10:21:15",
         "s",
         "o",
         "a",
@@ -402,26 +427,71 @@ values ("smithy",
 insert into participation
 values ("joli",
         921383212,
-        "2018-10-31 15:28:15",
+        "2017-10-31 15:28:15",
         692323322);
 
 insert into participation
 values ("smithy",
         391286572,
-        "2018-09-05 10:21:15",
+        "2017-09-05 10:21:15",
         562323322);
+
+
+insert into consult_diagnosis
+values (3,
+        "gros bobi",
+        482121911,
+        "2017-04-15 13:13:13");
+
+
+insert into consult_diagnosis
+values (3,
+        "gros bobi",
+        482121911,
+        "2017-04-30 13:13:13");
 
 insert into consult_diagnosis
 values (4,
         "bobi",
         482121911,
-        "2018-1-11 09:00:00");
+        "2017-1-11 09:00:00");
 
 insert into consult_diagnosis
 values (5,
         "joli",
         921383212,
-        "2018-10-31 15:28:15");
+        "2017-10-31 15:28:15");
+
+insert into medication
+values ("MoreHeart1",
+        "cardiologylab",
+        "250 mg");
+
+insert into medication
+values ("MoreHeart2",
+        "cardiologylab",
+        "500 mg");
+
+insert into prescription
+values (3,
+        "gros bobi",
+        482121911,
+        "2017-04-15 13:13:13",
+        "MoreHeart1",
+        "cardiologylab",
+        "250 mg",
+        "Every day");
+
+insert into prescription
+values (3,
+        "gros bobi",
+        482121911,
+        "2017-04-30 13:13:13",
+        "MoreHeart2",
+        "cardiologylab",
+        "500 mg",
+        "Every meal");
+
 
 insert into medication
 values ("LessScratch",
@@ -432,7 +502,7 @@ insert into prescription
 values (4,
         "bobi",
         482121911,
-        "2018-1-11 09:00:00",
+        "2017-1-11 09:00:00",
         "LessScratch",
         "Lab Lisboa",
         "100 mg",
@@ -447,7 +517,7 @@ insert into prescription
 values (5,
         "joli",
         921383212,
-        "2018-10-31 15:28:15",
+        "2017-10-31 15:28:15",
         "ToothPaste",
         "Lab dentario",
         "200 mg",
@@ -456,21 +526,21 @@ values (5,
 insert into vet_procedure
 values("joli",
         921383212,
-        "2018-10-31 15:28:15",
+        "2017-10-31 15:28:15",
         1,
         "Detartatization");
 
 insert into performed
 values("joli",
         921383212,
-        "2018-10-31 15:28:15",
+        "2017-10-31 15:28:15",
         1,
         692323322);
 
 insert into vet_procedure
 values("bobi",
         482121911,
-        "2018-1-11 09:00:00",
+        "2017-1-11 09:00:00",
         2,
         "Taking fleas out!");
 
