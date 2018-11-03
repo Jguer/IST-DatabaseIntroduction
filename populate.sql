@@ -353,6 +353,18 @@ values ("gros bobi",
         29);
 
 insert into consult
+values ("gros bobi",
+        482121911,
+        "2016-04-30 10:20:20",
+        "s",
+        "o",
+        "a",
+        "p",
+        482121911,
+        293121444,
+        23);
+
+insert into consult
 values ("blackie",
         121212746,
         "2017-08-04 09:00:00",
@@ -435,6 +447,31 @@ values ("smithy",
         391286572,
         "2017-09-05 10:21:15",
         562323322);
+
+insert into participation
+values ("gros bobi",
+        482121911,
+        "2016-04-30 10:20:20",
+        562323322);
+
+insert into participation
+values ("gros bobi",
+        482121911,
+        "2016-04-30 10:20:20",
+        692323322);
+
+insert into consult_diagnosis
+values (1,
+        "gros bobi",
+        482121911,
+        "2016-04-30 10:20:20");
+
+
+insert into consult_diagnosis
+values (0,
+        "blackie",
+        121212746,
+        "2017-08-04 09:00:00");
 
 
 insert into consult_diagnosis
@@ -567,3 +604,9 @@ values("Fat in blood",
         200,
         "milligrams",
         "Milligrams of fat in blood");
+
+insert into indicator
+values("creatinine level",
+        0.8,
+        "grams",
+        "Grams of creatinine in blood");

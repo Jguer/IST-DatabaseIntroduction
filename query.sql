@@ -48,14 +48,60 @@ from prescription, diagnosis_code
 where prescription.code = diagnosis_code.code
 group by diagnosis_code.name;
 
-/* 6 */
 
+/* 6 */
+select count(distinct participation.vat_assistant) / count(distinct consult.date_timestamp) 
+       as average_number_of_assistants, 
+       count(distinct vet_procedure.num) / count(distinct consult.date_timestamp)
+       as average_number_of_procedures,
+       count(distinct consult_diagnosis.code) / count(distinct consult.date_timestamp)
+       as average_number_of_diagnosis, 
+       count(distinct prescription.med_name) / count(distinct consult.date_timestamp)
+       as average_number_of_prescriptions
+from consult left join participation on consult.date_timestamp
+             left join vet_procedure on consult.date_timestamp
+             left join consult_diagnosis on consult.date_timestamp
+             left join prescription on consult.date_timestamp
+where consult.date_timestamp like "2017%";
 
 /* 7 */
+select *
+from (
+      select sub.name as s, consult_diagnosis.code as c, 
+             count(consult_diagnosis.code) as n
+      from generalization_species as dog_species, 
+           species as sub, animal, consult_diagnosis
+      where animal.species_name = sub.name and
+            animal.name = consult_diagnosis.name and
+            dog_species.name2 = "dog" and dog_species.name1 = sub.name
+      group by consult_diagnosis.code) as D
+      join (
+            select D2.s, max(D2.n) as mc
+            from (
+            select sub.name as s, consult_diagnosis.code as c, 
+                   count(consult_diagnosis.code) as n
+            from generalization_species as dog_species, 
+                 species as sub, animal, consult_diagnosis
+            where animal.species_name = sub.name and
+                  animal.name = consult_diagnosis.name and
+                  dog_species.name2 = "dog" and dog_species.name1 = sub.name
+            group by consult_diagnosis.code
+                  ) as D2
+            group by D2.s
+            ) as T
+      on D.s = T.s and D.n = T.mc;
 
+      select sub.name, consult_diagnosis.code, 
+             count(consult_diagnosis.code)
+      from generalization_species as dog_species, 
+           species as sub, animal, consult_diagnosis
+      where animal.species_name = sub.name and
+            animal.name = consult_diagnosis.name and
+            dog_species.name2 = "dog" and dog_species.name1 = sub.name
+      group by consult_diagnosis.code;
 
 /* 8 */
-select distinct * from 
+select distinct p1.name from 
 (select person.name
 from person, animal, consult
 where person.vat = animal.vat or person.vat = consult.vat_client) as p1
