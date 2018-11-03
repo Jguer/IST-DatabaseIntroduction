@@ -154,16 +154,16 @@ create table prescription
      animal_name    varchar(255), 
      vat_owner      integer, 
      date_timestamp timestamp, 
-     med_name       varchar(255), 
+     name_med       varchar(255), 
      lab            varchar(255), 
      dosage         varchar(255), 
      regime         varchar(255), 
-     primary key(code, animal_name, vat_owner, date_timestamp, med_name, lab, 
+     primary key(code, animal_name, vat_owner, date_timestamp, name_med, lab, 
      dosage), 
      foreign key(code) references consult_diagnosis(code), 
      foreign key(animal_name, vat_owner, date_timestamp) references consult(name 
      , vat_owner, date_timestamp), 
-     foreign key(med_name, lab, dosage) references medication(name, lab, dosage) 
+     foreign key(name_med, lab, dosage) references medication(name, lab, dosage) 
   ); 
 
 create table indicator 
@@ -218,22 +218,23 @@ create table test_procedure
      vat_owner      integer, 
      date_timestamp timestamp, 
      num            integer, 
-     type           char(5), 
+     type           varchar(5), 
+     check (type='blood' or type='urine'),
      primary key(name, vat_owner, date_timestamp, num), 
      foreign key(name, vat_owner, date_timestamp, num) references vet_procedure( 
-     name, vat_owner, date_timestamp, num) 
+     name, vat_owner, date_timestamp, num)
   ); 
 
 create table produced_indicator 
   ( 
-     animal_name    varchar(255), 
+     name    varchar(255), 
      vat_owner      integer, 
      date_timestamp timestamp, 
      num            integer, 
      indicator_name varchar(255), 
      value          numeric(5,2), 
-     primary key(animal_name, vat_owner, date_timestamp, num, indicator_name), 
-     foreign key(animal_name, vat_owner, date_timestamp, num) references 
+     primary key(name, vat_owner, date_timestamp, num, indicator_name), 
+     foreign key(name, vat_owner, date_timestamp, num) references 
      test_procedure(name, vat_owner, date_timestamp, num), 
      foreign key(indicator_name) references indicator(name) 
   ); 
