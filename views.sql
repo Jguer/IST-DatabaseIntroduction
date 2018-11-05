@@ -1,4 +1,4 @@
-drop view if exists facts_concults;
+drop view if exists facts_consults;
 drop view if exists dim_date;
 drop view if exists dim_animal;
 
@@ -22,7 +22,7 @@ create view dim_animal as
 	);
 
 /* 3 */
-create view facts_concults as
+create view facts_consults as
 	( select dim_animal.animal_name as name,
 			 dim_animal.animal_vat as vat,
 			 dim_date.date_timestamp as date_timestamp,

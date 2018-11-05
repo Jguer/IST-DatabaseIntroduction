@@ -84,7 +84,7 @@ create table animal
      colour       varchar(255), 
      gender       varchar(255), 
      birth_year   integer,
-#     age          integer as 2018,
+     age          integer,
      primary key(name, vat), 
      foreign key(vat) references client(vat), 
      foreign key(species_name) references species(name) 

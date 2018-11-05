@@ -1,8 +1,8 @@
 /* 1 */
 select distinct animal.name,
        owner.name,
-       animal.species_name
-#       animal.age
+       animal.species_name,
+       animal.age
 from animal, person as vet, consult, person as owner
 where vet.name = "John Smith" and 
       consult.vat_vet = vet.vat and
@@ -20,8 +20,8 @@ order by reference_value desc;
 /* 3 */
 select animal.name,
        person.name,
-       animal.species_name
-#      animal.age
+       animal.species_name,
+       animal.age
 from animal, person, consult as c1
 where animal.vat = person.vat and
       c1.vat_owner = animal.vat and
@@ -43,7 +43,7 @@ not exists (
            where animal.vat = N.vat);
 
 /* 5 */
-select diagnosis_code.name, count(distinct prescription.med_name)
+select diagnosis_code.name, count(distinct prescription.name_med)
 from prescription, diagnosis_code
 where prescription.code = diagnosis_code.code
 group by diagnosis_code.name;
@@ -56,13 +56,13 @@ select count(distinct participation.vat_assistant) / count(distinct consult.date
        as average_number_of_procedures,
        count(distinct consult_diagnosis.code) / count(distinct consult.date_timestamp)
        as average_number_of_diagnosis, 
-       count(distinct prescription.med_name) / count(distinct consult.date_timestamp)
+       count(distinct prescription.name_med) / count(distinct consult.date_timestamp)
        as average_number_of_prescriptions
 from consult left join participation on consult.date_timestamp
              left join vet_procedure on consult.date_timestamp
              left join consult_diagnosis on consult.date_timestamp
              left join prescription on consult.date_timestamp
-where consult.date_timestamp like "2017%";
+where YEAR(consult.date_timestamp) like "2017";
 
 /* 7 */
 select *

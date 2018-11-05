@@ -222,7 +222,8 @@ values ("bobi",
         "mastiff",
         "black",
         "male",
-        1995);
+        1995,
+        23);
 
 
 insert into animal
@@ -231,7 +232,8 @@ values ("gros bobi",
         "dobberman",
         "white",
         "female",
-        1999);
+        1999,
+        19);
 
 
 insert into animal
@@ -240,7 +242,8 @@ values ("joli",
         "chiwawa",
         "black",
         "male",
-        2013);
+        2013,
+        5);
 
 
 insert into animal
@@ -249,7 +252,8 @@ values ("socio",
         "mastiff",
         "chestnut",
         "male",
-        2012);
+        2012,
+        6);
 
 
 insert into animal
@@ -258,7 +262,8 @@ values ("kafka",
         "tibetan mastiff",
         "black",
         "male",
-        2010);
+        2010,
+        8);
 
 
 insert into animal
@@ -267,7 +272,8 @@ values ("ferdinand",
         "cao de agua",
         "grey",
         "male",
-        2017);
+        2017,
+        1);
 
 
 insert into animal
@@ -276,7 +282,8 @@ values ("poe",
         "cao de agua",
         "grey",
         "female",
-        2002);
+        2002,
+        16);
 
 insert into animal
 values ("smithy",
@@ -284,7 +291,8 @@ values ("smithy",
         "baiano",
         "milky white",
         "female",
-        2002);
+        2002,
+        16);
 
 insert into animal
 values ("mockingjay",
@@ -292,7 +300,8 @@ values ("mockingjay",
         "mockingbird",
         "brown",
         "female",
-        2015);
+        2015,
+        3);
 
 insert into animal
 values ("blackie",
@@ -300,7 +309,8 @@ values ("blackie",
         "blackbird",
         "black",
         "male",
-        2015);
+        2015,
+        3);
 
 
 insert into diagnosis_code
