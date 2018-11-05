@@ -65,9 +65,9 @@ from consult left join participation on consult.date_timestamp
 where YEAR(consult.date_timestamp) like "2017";
 
 /* 7 */
-select *
+select D.s, diagnosis_code.code
 from (
-      select sub.name as s, consult_diagnosis.code as c, 
+      select sub.name as s, consult_diagnosis.code as c,
              count(consult_diagnosis.code) as n
       from generalization_species as dog_species, 
            species as sub, animal, consult_diagnosis
@@ -75,30 +75,34 @@ from (
             animal.name = consult_diagnosis.name and
             dog_species.name2 = "dog" and dog_species.name1 = sub.name
       group by consult_diagnosis.code) as D
-      join (
-            select D2.s, max(D2.n) as mc
-            from (
-            select sub.name as s, consult_diagnosis.code as c, 
-                   count(consult_diagnosis.code) as n
-            from generalization_species as dog_species, 
-                 species as sub, animal, consult_diagnosis
-            where animal.species_name = sub.name and
-                  animal.name = consult_diagnosis.name and
-                  dog_species.name2 = "dog" and dog_species.name1 = sub.name
-            group by consult_diagnosis.code
-                  ) as D2
-            group by D2.s
-            ) as T
-      on D.s = T.s and D.n = T.mc;
+      join 
+      (
+       select D2.s, max(D2.n) as mc
+       from (
+             select sub.name as s, consult_diagnosis.code as c,
+                    count(consult_diagnosis.code) as n
+             from generalization_species as dog_species, 
+                  species as sub, animal, consult_diagnosis
+             where animal.species_name = sub.name and
+                   animal.name = consult_diagnosis.name and
+                   dog_species.name2 = "dog" and dog_species.name1 = sub.name
+             group by consult_diagnosis.code
+            ) as D2
+        group by D2.s
+      ) as T
+        on D.s = T.s and D.n = T.mc,
+      diagnosis_code
+      where diagnosis_code.code = D.c;
 
-      select sub.name, consult_diagnosis.code, 
-             count(consult_diagnosis.code)
-      from generalization_species as dog_species, 
-           species as sub, animal, consult_diagnosis
-      where animal.species_name = sub.name and
-            animal.name = consult_diagnosis.name and
-            dog_species.name2 = "dog" and dog_species.name1 = sub.name
-      group by consult_diagnosis.code;
+      #select sub.name, consult_diagnosis.code, 
+      #       count(consult_diagnosis.code)
+      #from generalization_species as dog_species, 
+      #     species as sub, animal, consult_diagnosis
+      #where animal.species_name = sub.name and
+      #      animal.name = consult_diagnosis.name and
+      #      dog_species.name2 = "dog" and dog_species.name1 = sub.name
+      #group by consult_diagnosis.code;
+      
 
 /* 8 */
 select distinct p1.name from 
