@@ -63,16 +63,25 @@ where prescription.code = diagnosis_code.code
 group by diagnosis_code.name;
 
 /* 6 */
-select count(distinct participation.vat_assistant) / count(distinct consult.date_timestamp) as average_number_of_assistants,
-       count(distinct vet_procedure.num) / count(distinct consult.date_timestamp) as average_number_of_procedures,
-       count(distinct consult_diagnosis.code) / count(distinct consult.date_timestamp) as average_number_of_diagnosis,
-       count(distinct prescription.name_med) / count(distinct consult.date_timestamp) as average_number_of_prescriptions
-from consult
-left join participation on consult.date_timestamp
-left join vet_procedure on consult.date_timestamp
-left join consult_diagnosis on consult.date_timestamp
-left join prescription on consult.date_timestamp
-where YEAR(consult.date_timestamp) like "2017";
+select sum(S.a1)/count(distinct S.date_timestamp) as average_number_of_assistants,
+       sum(S.a2)/count(distinct S.date_timestamp) as average_number_of_procedures,
+       sum(S.a3)/count(distinct S.date_timestamp) as average_number_of_diagnosis,
+       sum(S.a4)/count(distinct S.date_timestamp) as average_number_of_prescriptions
+from
+    (
+    select consult.date_timestamp, 
+           count(distinct participation.vat_assistant) as a1,
+           count(distinct vet_procedure.num) as a2,
+           count(distinct consult_diagnosis.code) as a3,
+           count(distinct prescription.name_med) as a4
+    from consult
+    left join participation on consult.date_timestamp = participation.date_timestamp
+    left join vet_procedure on consult.date_timestamp = vet_procedure.date_timestamp
+    left join consult_diagnosis on consult.date_timestamp = consult_diagnosis.date_timestamp
+    left join prescription on consult.date_timestamp = prescription.date_timestamp
+    where YEAR(consult.date_timestamp) like "2017"
+    group by consult.date_timestamp
+    ) as S;
 
 /* 7 */
 select D.s as dog_sub_species,
