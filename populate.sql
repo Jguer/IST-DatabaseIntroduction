@@ -119,6 +119,7 @@ values (692323322);
 insert into assistant (VAT)
 values (692323322);
 
+
 insert into person (VAT,name,address_street,address_city,address_zip)
 values (562323322,
         'Xana Toc',
@@ -126,8 +127,10 @@ values (562323322,
         'Funchal',
         '8111-555');
 
+
 insert into assistant (VAT)
 values (562323322);
+
 
 insert into person (VAT,name,address_street,address_city,address_zip)
 values (587823329,
@@ -135,6 +138,7 @@ values (587823329,
         'Rua de Marco',
         'Loures',
         '4525-105');
+
 
 insert into client (VAT)
 values (587823329);
@@ -171,6 +175,7 @@ insert into species (name,description)
 values ("mastiff",
         "not tibetan");
 
+
 insert into species (name,description)
 values ("baiano",
         "From the warm waters");
@@ -180,41 +185,51 @@ insert into species (name,description)
 values ("Cao de agua",
         "Fuzzy and warm");
 
+
 insert into species (name,description)
 values ("dog",
         "man's best friend");
+
 
 insert into generalization_species (name1, name2)
 values ("dobberman",
         "dog");
 
+
 insert into generalization_species (name1, name2)
 values ("chiwawa",
         "dog");
+
 
 insert into generalization_species (name1, name2)
 values ("tibetan mastiff",
         "dog");
 
+
 insert into generalization_species (name1, name2)
 values ("mastiff",
         "dog");
+
 
 insert into generalization_species (name1, name2)
 values ("baiano",
         "dog");
 
+
 insert into generalization_species (name1, name2)
 values ("cao de agua",
         "dog");
+
 
 insert into species (name,description)
 values ("mockingbird",
         "small bird");
 
+
 insert into species (name,description)
 values ("blackbird",
         "bird that is black");
+
 
 insert into animal
 values ("bobi",
@@ -285,6 +300,7 @@ values ("poe",
         2002,
         16);
 
+
 insert into animal
 values ("smithy",
         391286572,
@@ -294,6 +310,7 @@ values ("smithy",
         2002,
         16);
 
+
 insert into animal
 values ("mockingjay",
         782333333,
@@ -302,6 +319,7 @@ values ("mockingjay",
         "female",
         2015,
         3);
+
 
 insert into animal
 values ("blackie",
@@ -317,25 +335,31 @@ insert into diagnosis_code
 values (0,
         "kidney failure");
 
+
 insert into diagnosis_code
 values (1,
         "renal insufficiency");
+
 
 insert into diagnosis_code
 values (2,
         "pulmonary failure");
 
+
 insert into diagnosis_code
 values (3,
         "heart failure");
+
 
 insert into diagnosis_code
 values (4,
         "fleas");
 
+
 insert into diagnosis_code
 values (5,
         "tartarus");
+
 
 insert into consult
 values ("gros bobi",
@@ -362,6 +386,7 @@ values ("gros bobi",
         293121444,
         29);
 
+
 insert into consult
 values ("gros bobi",
         482121911,
@@ -373,6 +398,7 @@ values ("gros bobi",
         482121911,
         293121444,
         23);
+
 
 insert into consult
 values ("blackie",
@@ -386,6 +412,7 @@ values ("blackie",
         293121444,
         35);
 
+
 insert into consult
 values ("blackie",
         121212746,
@@ -397,6 +424,7 @@ values ("blackie",
         587823329,
         293121444,
         25);
+
 
 insert into consult
 values ("bobi",
@@ -410,6 +438,7 @@ values ("bobi",
         146252131,
         10.1);
 
+
 insert into consult
 values ("socio",
         493232134,
@@ -421,6 +450,7 @@ values ("socio",
         482121911,
         293121444,
         5.3);
+
 
 insert into consult
 values ("joli",
@@ -434,6 +464,7 @@ values ("joli",
         812924465,
         7.2);
 
+
 insert into consult
 values ("smithy",
         391286572,
@@ -446,11 +477,13 @@ values ("smithy",
         812924465,
         6.6);
 
+
 insert into participation
 values ("joli",
         921383212,
         "2017-10-31 15:28:15",
         692323322);
+
 
 insert into participation
 values ("smithy",
@@ -458,17 +491,20 @@ values ("smithy",
         "2017-09-05 10:21:15",
         562323322);
 
+
 insert into participation
 values ("gros bobi",
         482121911,
         "2016-04-30 10:20:20",
         562323322);
 
+
 insert into participation
 values ("gros bobi",
         482121911,
         "2016-04-30 10:20:20",
         692323322);
+
 
 insert into consult_diagnosis
 values (1,
@@ -497,11 +533,13 @@ values (3,
         482121911,
         "2017-04-30 13:13:13");
 
+
 insert into consult_diagnosis
 values (4,
         "bobi",
         482121911,
         "2017-1-11 09:00:00");
+
 
 insert into consult_diagnosis
 values (5,
@@ -509,15 +547,18 @@ values (5,
         921383212,
         "2017-10-31 15:28:15");
 
+
 insert into medication
 values ("MoreHeart1",
         "cardiologylab",
         "250 mg");
 
+
 insert into medication
 values ("MoreHeart2",
         "cardiologylab",
         "500 mg");
+
 
 insert into prescription
 values (3,
@@ -528,6 +569,7 @@ values (3,
         "cardiologylab",
         "250 mg",
         "Every day");
+
 
 insert into prescription
 values (3,
@@ -545,6 +587,7 @@ values ("LessScratch",
         "Lab Lisboa",
         "100 mg");
 
+
 insert into prescription
 values (4,
         "bobi",
@@ -555,10 +598,12 @@ values (4,
         "100 mg",
         "Twice a day");
 
+
 insert into medication
 values ("ToothPaste",
         "Lab dentario",
         "200 mg");
+
 
 insert into prescription
 values (5,
@@ -570,53 +615,66 @@ values (5,
         "200 mg",
         "Only at night");
 
+
 insert into vet_procedure
 values("joli",
-        921383212,
-        "2017-10-31 15:28:15",
-        1,
-        "Detartatization");
+       921383212,
+       "2017-10-31 15:28:15",
+       1,
+       "Detartatization");
+
 
 insert into performed
 values("joli",
-        921383212,
-        "2017-10-31 15:28:15",
-        1,
-        692323322);
+       921383212,
+       "2017-10-31 15:28:15",
+       1,
+       692323322);
+
 
 insert into vet_procedure
 values("bobi",
-        482121911,
-        "2017-1-11 09:00:00",
-        2,
-        "Taking fleas out!");
+       482121911,
+       "2017-1-11 09:00:00",
+       2,
+       "Taking fleas out!");
 
-insert into indicator
+
+insert into
+indicator
 values("Fe in blood",
-        150,
-        "milligrams",
-        "Milligrams of Iron in blood");
+       150,
+       "milligrams",
+       "Milligrams of Iron in blood");
 
-insert into indicator
+
+insert into
+indicator
 values("Platelets in blood",
-        10,
-        "number",
-        "Number of platelets in blood");
+       10,
+       "number",
+       "Number of platelets in blood");
 
-insert into indicator
+
+insert into
+indicator
 values("Sugar in blood",
-        90,
-        "milligrams",
-        "Milligrams of sugar in blood");
+       90,
+       "milligrams",
+       "Milligrams of sugar in blood");
 
-insert into indicator
+
+insert into
+indicator
 values("Fat in blood",
-        200,
-        "milligrams",
-        "Milligrams of fat in blood");
+       200,
+       "milligrams",
+       "Milligrams of fat in blood");
 
-insert into indicator
+
+insert into
+indicator
 values("creatinine level",
-        0.8,
-        "grams",
-        "Grams of creatinine in blood");
+       0.8,
+       "grams",
+       "Grams of creatinine in blood");
