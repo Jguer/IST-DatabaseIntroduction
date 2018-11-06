@@ -1,8 +1,8 @@
 /* 1 */
-select distinct animal.name,
-                owner.name,
-                animal.species_name,
-                animal.age
+select distinct animal.name as name,
+                owner.name as owner_name,
+                animal.species_name as species,
+                animal.age as age
 from animal,
      person as vet,
      consult,
@@ -23,9 +23,9 @@ where units = 'milligrams'
 order by reference_value desc;
 
 /* 3 */
-select animal.name,
-       person.name,
-       animal.species_name,
+select animal.name as name,
+       person.name as owner_name,
+       animal.species_name as species,
        animal.age
 from animal,
      person,
@@ -41,9 +41,11 @@ where animal.vat = person.vat
      where c2.name = c1.name);
 
 /* 4 */
-select N.name,
-       N.vat,
-       N.address_street
+select N.name as name,
+       N.vat as vat,
+       N.address_street as street,
+       N.address_city as city,
+       N.address_zip as zip
 from person as N,
      client
 where N.vat = client.vat
@@ -53,8 +55,8 @@ where N.vat = client.vat
      where animal.vat = N.vat);
 
 /* 5 */
-select diagnosis_code.name,
-       count(distinct prescription.name_med)
+select diagnosis_code.name as diagnosis,
+       count(distinct prescription.name_med) as number_distinct_medication
 from prescription,
      diagnosis_code
 where prescription.code = diagnosis_code.code
@@ -73,8 +75,8 @@ left join prescription on consult.date_timestamp
 where YEAR(consult.date_timestamp) like "2017";
 
 /* 7 */
-select D.s,
-       diagnosis_code.code
+select D.s as dog_sub_species,
+       diagnosis_code.code as most_common_disease
 from
   (select sub.name as s,
           consult_diagnosis.code as c,
@@ -109,8 +111,8 @@ and D.n = T.mc,
     diagnosis_code
 where diagnosis_code.code = D.c;
 
-/* #select sub.name, */ /* consult_diagnosis.code, #       count(consult_diagnosis.code) */ /*  #from generalization_species as dog_species, #     species as sub, animal, consult_diagnosis */ /*  #where animal.species_name = sub.name */ /* and #      animal.name = consult_diagnosis.name and */ /*  #      dog_species.name2 = "dog" and dog_species.name1 = sub.name */ /*  #group by consult_diagnosis.code; */ /* 8 */
-select distinct p1.name
+/* 8 */
+select distinct p1.name as name
 from
   (select person.name
    from person,
@@ -127,8 +129,10 @@ inner join
      or person.vat = assistant.vat) as p2 on p1.name = p2.name;
 
 /* 9 */
-select distinct person.name,
-                person.address_street
+select distinct person.name as name,
+                person.address_street as street,
+                person.address_city as city,
+                person.address_zip as zip
 from person,
      client
 where not exists
