@@ -38,7 +38,8 @@ where animal.vat = person.vat
   and c1.date_timestamp >= all
     (select c2.date_timestamp
      from consult as c2
-     where c2.name = c1.name);
+     where c2.name = c1.name
+           and c2.vat_owner = c1.vat_owner);
 
 /* Query 4 */
 select N.name as name,
@@ -64,10 +65,10 @@ group by diagnosis_code.name
 order by number_distinct_medication asc;
 
 /* Query 6 */
-select sum(S.a1)/count(distinct S.date_timestamp) as average_number_of_assistants,
-       sum(S.a2)/count(distinct S.date_timestamp) as average_number_of_procedures,
-       sum(S.a3)/count(distinct S.date_timestamp) as average_number_of_diagnosis,
-       sum(S.a4)/count(distinct S.date_timestamp) as average_number_of_prescriptions
+select avg(S.a1) as average_number_of_assistants,
+       avg(S.a2) as average_number_of_procedures,
+       avg(S.a3) as average_number_of_diagnosis,
+       avg(S.a4) as average_number_of_prescriptions
 from
     (
     select consult.date_timestamp, 
@@ -76,50 +77,51 @@ from
            count(distinct consult_diagnosis.code) as a3,
            count(distinct prescription.name_med) as a4
     from consult
-    left join participation on consult.date_timestamp = participation.date_timestamp
+    left join participation on consult.date_timestamp = participation.date_timestamp 
+                            and consult.name = participation.name
+                            and consult.vat_owner = participation.vat_owner
     left join vet_procedure on consult.date_timestamp = vet_procedure.date_timestamp
+                            and consult.name = vet_procedure.name
+                            and consult.vat_owner = vet_procedure.vat_owner
     left join consult_diagnosis on consult.date_timestamp = consult_diagnosis.date_timestamp
+                                and consult.name = consult_diagnosis.name
+                                and consult.vat_owner = consult_diagnosis.vat_owner
     left join prescription on consult.date_timestamp = prescription.date_timestamp
+                           and consult.name = prescription.animal_name
+                           and consult.vat_owner = prescription.vat_owner
     where YEAR(consult.date_timestamp) like "2017"
     group by consult.date_timestamp
     ) as S;
 
 /* Query 7 */
-select D.s as dog_sub_species,
+select D.s as dog_sub_species, 
        diagnosis_code.code as most_common_disease
-from
-  (select sub.name as s,
-          consult_diagnosis.code as c,
-          count(consult_diagnosis.code) as n
-   from generalization_species as dog_species,
+from diagnosis_code,
+    (select sub.name as s,
+              consult_diagnosis.code as c,
+              count(consult_diagnosis.code) as n
+    from generalization_species as dog_species,
         species as sub,
-        animal,
-        consult_diagnosis
-   where animal.species_name = sub.name
-     and animal.name = consult_diagnosis.name
-     and dog_species.name2 = "dog"
-     and dog_species.name1 = sub.name
-   group by consult_diagnosis.code) as D
-join
-  (select D2.s,
-          max(D2.n) as mc
-   from
-     (select sub.name as s,
-             consult_diagnosis.code as c,
-             count(consult_diagnosis.code) as n
-      from generalization_species as dog_species,
-           species as sub,
-           animal,
-           consult_diagnosis
-      where animal.species_name = sub.name
-        and animal.name = consult_diagnosis.name
-        and dog_species.name2 = "dog"
-        and dog_species.name1 = sub.name
-      group by consult_diagnosis.code) as D2
-   group by D2.s) as T on D.s = T.s
-and D.n = T.mc,
-    diagnosis_code
-where diagnosis_code.code = D.c;
+        animal inner join consult_diagnosis 
+        on animal.name = consult_diagnosis.name 
+           and animal.vat = consult_diagnosis.vat_owner
+    where animal.species_name = sub.name
+          and dog_species.name2 = "dog"
+          and dog_species.name1 = sub.name
+    group by consult_diagnosis.code) as D
+where diagnosis_code.code = D.c 
+      and D.n >= all(select count(consult_diagnosis.code) as n
+                  from generalization_species as dog_species,
+                      species as sub,
+                      animal inner join consult_diagnosis 
+                      on animal.name = consult_diagnosis.name 
+                         and animal.vat = consult_diagnosis.vat_owner
+                  where animal.species_name = sub.name
+                        and dog_species.name2 = "dog"
+                        and dog_species.name1 = sub.name
+                        and sub.name = D.s
+                  group by consult_diagnosis.code
+                  );
 
 /* Query 8 */
 select distinct p1.name as name
