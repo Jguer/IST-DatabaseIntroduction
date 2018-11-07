@@ -13,7 +13,8 @@ insert into person (VAT,name,address_street,address_city,address_zip) values
 (121212746,'Ricardo Pereira','Rua Jorge da Cunha 143','Abrunheira','1821-131'),
 (357812587,'Tomas de Noronha','Rua do Irao','Faro','2021-700'),
 (667812587,'Goncalo Rosa','Rua 1o Dezembro','Guarda','1021-700'),
-(735916821,'Jean Doc','Avenida da Liberdade','Lisboa','1700-000');
+(735916821,'Jean Doc','Avenida da Liberdade','Lisboa','1700-000'),
+(555916111,'Afonsina de Albuquerque','Avenida do Conquistador','Guimaraes','2100-123');
 
 insert into veterinary (VAT,specialization,bio) values 
 (293121444,"surgery","A very nice man"),
@@ -32,12 +33,14 @@ insert into client (VAT) values
 (692323322),
 (587823329),
 (121212746),
-(357812587);
+(357812587),
+(555916111);
 
 insert into assistant (VAT) values 
 (692323322),
 (562323322),
-(667812587);
+(667812587),
+(555916111);
 
 insert into species (name,description) values
 ("dobberman","very german"),
@@ -98,7 +101,8 @@ insert into consult values
 ("minnie",357812587,"2017-01-10 17:21:15","seems fine","is fine","has nothing","do nothing",357812587,812924465,6),
 ("minnie",357812587,"2017-02-06 16:21:15","doesn't breath well","bad inhaling","pulmonary issue","immediate surgery",357812587,293121444,6),
 ("daisy",357812587,"2017-07-22 10:21:15","seems fine","is fine","has nothing","will still sample urine",357812587,293121444,10),
-("poe",692323322,"2018-01-12 21:10:10","feeling down","not well","renal insufficiency","prescribe medication",391286572,735916821,32);
+("poe",692323322,"2018-01-12 21:10:10","feeling down","not well","renal insufficiency","prescribe medication",391286572,735916821,32),
+("tutankamon",293121444,"2018-04-15 15:07:51","seems fine","is fine","has nothing","will see x-ray",555916111,735916821,7);
 
 insert into participation values
 ("joli",921383212,"2017-10-31 15:28:15",692323322),
@@ -106,7 +110,8 @@ insert into participation values
 ("gros bobi",482121911,"2016-04-30 10:20:20",562323322),
 ("gros bobi",482121911,"2016-04-30 10:20:20",692323322),
 ("minnie",357812587,"2017-01-010 17:21:15",692323322),
-("poe",692323322,"2018-01-12 21:10:10",667812587);
+("poe",692323322,"2018-01-12 21:10:10",667812587),
+("tutankamon",293121444,"2018-04-15 15:07:51",555916111);
 
 insert into consult_diagnosis values
 (1,"gros bobi",482121911,"2016-04-30 10:20:20"),
@@ -141,14 +146,18 @@ insert into vet_procedure values
 ("minnie",357812587,"2017-02-06 16:21:15",2,"Taking blood."),
 ("blackie",121212746,"2017-08-04 09:00:00",1,"Taking blood."),
 ("daisy",357812587,"2017-07-22 10:21:15",1,"Sampling urine."),
-("poe",692323322,"2018-01-12 21:10:10",1,"Sampling blood.");
+("poe",692323322,"2018-01-12 21:10:10",1,"Sampling blood."),
+("tutankamon",293121444,"2018-04-15 15:07:51",1,"X-Ray.");
 
 insert into performed values
 ("joli",921383212,"2017-10-31 15:28:15",1,692323322),
 ("minnie",357812587,"2017-02-06 16:21:15",1,692323322),
 ("minnie",357812587,"2017-02-06 16:21:15",1,667812587),
 ("daisy",357812587,"2017-07-22 10:21:15",1,667812587),
-("poe",692323322,"2018-01-12 21:10:10",1,562323322);
+("tutankamon",293121444,"2018-04-15 15:07:51",1,555916111);
+
+insert into radiography values
+("tutankamon",293121444,"2018-04-15 15:07:51",1,"C:/radiography_images/x-ray/tutankamon_293121444");
 
 insert into indicator values
 ("Fe in blood",150,"milligrams","Milligrams of Iron in blood"),
