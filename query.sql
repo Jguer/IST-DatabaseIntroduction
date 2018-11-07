@@ -1,4 +1,4 @@
-/* 1 */
+/* Query 1 */
 select distinct animal.name as name,
                 owner.name as owner_name,
                 animal.species_name as species,
@@ -13,7 +13,7 @@ where vet.name = "John Smith"
   and consult.vat_owner = animal.vat
   and consult.vat_owner = owner.vat;
 
-/* 2 */
+/* Query 2 */
 select name,
        reference_value
 from
@@ -22,7 +22,7 @@ where units = 'milligrams'
   and reference_value > 100
 order by reference_value desc;
 
-/* 3 */
+/* Query 3 */
 select animal.name as name,
        person.name as owner_name,
        animal.species_name as species,
@@ -40,7 +40,7 @@ where animal.vat = person.vat
      from consult as c2
      where c2.name = c1.name);
 
-/* 4 */
+/* Query 4 */
 select N.name as name,
        N.vat as vat,
        N.address_street as street,
@@ -54,15 +54,16 @@ where N.vat = client.vat
      from animal
      where animal.vat = N.vat);
 
-/* 5 */
+/* Query 5 */
 select diagnosis_code.name as diagnosis,
        count(distinct prescription.name_med) as number_distinct_medication
 from prescription,
      diagnosis_code
 where prescription.code = diagnosis_code.code
-group by diagnosis_code.name;
+group by diagnosis_code.name
+order by number_distinct_medication asc;
 
-/* 6 */
+/* Query 6 */
 select sum(S.a1)/count(distinct S.date_timestamp) as average_number_of_assistants,
        sum(S.a2)/count(distinct S.date_timestamp) as average_number_of_procedures,
        sum(S.a3)/count(distinct S.date_timestamp) as average_number_of_diagnosis,
@@ -83,7 +84,7 @@ from
     group by consult.date_timestamp
     ) as S;
 
-/* 7 */
+/* Query 7 */
 select D.s as dog_sub_species,
        diagnosis_code.code as most_common_disease
 from
@@ -120,7 +121,7 @@ and D.n = T.mc,
     diagnosis_code
 where diagnosis_code.code = D.c;
 
-/* 8 */
+/* Query 8 */
 select distinct p1.name as name
 from
   (select person.name
@@ -137,7 +138,7 @@ inner join
    where person.vat = veterinary.vat
      or person.vat = assistant.vat) as p2 on p1.name = p2.name;
 
-/* 9 */
+/* Query 9 */
 select distinct person.name as name,
                 person.address_street as street,
                 person.address_city as city,

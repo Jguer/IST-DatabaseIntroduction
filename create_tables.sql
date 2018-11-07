@@ -101,12 +101,12 @@ create table consult
      p              varchar(255), 
      vat_client     integer, 
      vat_vet        integer, 
-     weight         numeric(5,2), 
+     weight         numeric(5,2),
+     check (weight >= 0),
      primary key(name, vat_owner, date_timestamp), 
      foreign key(name, vat_owner) references animal(name, vat), 
      foreign key(vat_client) references client(vat), 
-     foreign key(vat_vet) references veterinary(vat),
-     check (weight >= 0)
+     foreign key(vat_vet) references veterinary(vat)
   ); 
 
 create table participation 
@@ -218,8 +218,8 @@ create table test_procedure
      vat_owner      integer, 
      date_timestamp timestamp, 
      num            integer, 
-     type           varchar(5), 
-     check (type='blood' or type='urine'),
+     type           varchar(5),
+     check ((type="blood") or (type="urine")),
      primary key(name, vat_owner, date_timestamp, num), 
      foreign key(name, vat_owner, date_timestamp, num) references vet_procedure( 
      name, vat_owner, date_timestamp, num)
