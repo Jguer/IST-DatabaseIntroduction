@@ -135,7 +135,7 @@ create table consult_diagnosis
      vat_owner      integer, 
      date_timestamp timestamp, 
      primary key(code, name, vat_owner, date_timestamp), 
-     foreign key(code) references diagnosis_code(code), 
+     foreign key(code) references diagnosis_code(code) on update cascade,
      foreign key(name, vat_owner, date_timestamp) references consult(name, 
      vat_owner, date_timestamp) on delete cascade
   ); 
@@ -161,7 +161,7 @@ create table prescription
      primary key(code, animal_name, vat_owner, date_timestamp, name_med, lab, 
      dosage), 
      foreign key(code, animal_name, vat_owner, date_timestamp) references 
-        consult_diagnosis(code, name, vat_owner, date_timestamp) on delete cascade, 
+        consult_diagnosis(code, name, vat_owner, date_timestamp) on delete cascade on update cascade, 
      foreign key(name_med, lab, dosage) references medication(name, lab, dosage) 
   ); 
 

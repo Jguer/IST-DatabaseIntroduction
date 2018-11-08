@@ -22,12 +22,12 @@ from client using person join client on person.vat = client.vat
 where person.name ="John Smith";
 
 /* 4 */
-insert into diagnosis_code values (6,"end-stage renal");
+insert into diagnosis_code values (6,"end-stage renal disease");
 update consult_diagnosis
 join produced_indicator on produced_indicator.name = consult_diagnosis.name
                         and produced_indicator.vat_owner = consult_diagnosis.vat_owner
                         and produced_indicator.date_timestamp = consult_diagnosis.date_timestamp
 join diagnosis_code on diagnosis_code.code = consult_diagnosis.code
-set consult_diagnosis.code = 6
+set consult_diagnosis.code = 6, consult_diagnosis.date_timestamp = consult_diagnosis.date_timestamp
 where diagnosis_code.name = "kidney failure" and produced_indicator.value > 1
       and produced_indicator.indicator_name = "creatinine level";

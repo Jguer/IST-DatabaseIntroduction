@@ -92,7 +92,7 @@ insert into consult values
 ("gros bobi",482121911,"2017-04-15 13:13:13","eats a lot","suffers obesity","heart problem","prescribe dose1",587823329,293121444,31),
 ("gros bobi",482121911,"2017-04-30 13:13:13","isn't eating","no more obesity","heart problem","prescribe dose2",482121911,293121444,29),
 ("gros bobi",482121911,"2016-04-30 10:20:20","nothing special","not well","renal insufficiency","let things evolve",482121911,293121444,23),
-("blackie",121212746,"2017-08-04 09:00:00","feeling down","already obese","kidney problem","sample blood",121212746,293121444,35),
+("blackie",121212746,"2017-08-04 09:00:00","feeling down","already obese","kidney problem","sample blood",121212746,735916821,35),
 ("blackie",121212746,"2017-07-04 14:00:00","feeling down","not yet obese","ok","let things evolve",587823329,293121444,25),
 ("bobi",482121911,"2017-1-11 09:00:00","scratches much","never stands still","has fleas","prescribe medication",482121911,146252131,10.1),
 ("socio",493232134,"2017-10-31 18:07:15","seems fine","is fine","has nothing","do nothing",482121911,293121444,5.3),
@@ -177,4 +177,4 @@ insert into produced_indicator values
 ("minnie",357812587,"2017-02-06 16:21:15",2,"Fe in blood",155),
 ("blackie",121212746,"2017-08-04 09:00:00",1,"creatinine level",1.5),
 ("daisy",357812587,"2017-07-22 10:21:15",1,"pH",6.8),
-("poe",692323322,"2018-01-12 21:10:10",1,"creatinine level",0.9);
+("poe",692323322,"2018-01-12 21:10:10",1,"creatinine level",0.8);
