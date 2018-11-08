@@ -101,7 +101,7 @@ insert into consult values
 ("minnie",357812587,"2017-01-10 17:21:15","seems fine","is fine","has nothing","do nothing",357812587,812924465,6),
 ("minnie",357812587,"2017-02-06 16:21:15","doesn't breath well","bad inhaling","pulmonary issue","immediate surgery",357812587,293121444,6),
 ("daisy",357812587,"2017-07-22 10:21:15","seems fine","is fine","has nothing","will still sample urine",357812587,293121444,10),
-("poe",692323322,"2018-01-12 21:10:10","feeling down","not well","renal insufficiency","prescribe medication",391286572,735916821,32),
+("poe",692323322,"2018-01-12 21:10:10","feeling down","obese","renal insufficiency","prescribe medication",391286572,735916821,32),
 ("tutankamon",293121444,"2018-04-15 15:07:51","seems fine","is fine","has nothing","will see x-ray",555916111,735916821,7);
 
 insert into participation values
