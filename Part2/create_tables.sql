@@ -151,16 +151,16 @@ create table medication
 create table prescription 
   ( 
      code           varchar(255), 
-     animal_name    varchar(255), 
+     name    varchar(255), 
      vat_owner      integer, 
      date_timestamp timestamp, 
      name_med       varchar(255), 
      lab            varchar(255), 
      dosage         varchar(255), 
      regime         varchar(255), 
-     primary key(code, animal_name, vat_owner, date_timestamp, name_med, lab, 
+     primary key(code, name, vat_owner, date_timestamp, name_med, lab, 
      dosage), 
-     foreign key(code, animal_name, vat_owner, date_timestamp) references 
+     foreign key(code, name, vat_owner, date_timestamp) references 
         consult_diagnosis(code, name, vat_owner, date_timestamp) on delete cascade on update cascade, 
      foreign key(name_med, lab, dosage) references medication(name, lab, dosage) 
   ); 

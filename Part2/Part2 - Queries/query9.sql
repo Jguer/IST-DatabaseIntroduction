@@ -3,8 +3,7 @@ select distinct person.name as name,
                 person.address_street as street,
                 person.address_city as city,
                 person.address_zip as zip
-from person,
-     client
+from person
 where not exists
     (select animal.name
      from animal

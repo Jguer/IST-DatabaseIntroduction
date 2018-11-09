@@ -87,7 +87,7 @@ from
                                 and consult.name = consult_diagnosis.name
                                 and consult.vat_owner = consult_diagnosis.vat_owner
     left join prescription on consult.date_timestamp = prescription.date_timestamp
-                           and consult.name = prescription.animal_name
+                           and consult.name = prescription.name
                            and consult.vat_owner = prescription.vat_owner
     where YEAR(consult.date_timestamp) like "2017"
     group by consult.date_timestamp
@@ -140,8 +140,7 @@ select distinct person.name as name,
                 person.address_street as street,
                 person.address_city as city,
                 person.address_zip as zip
-from person,
-     client
+from person
 where not exists
     (select animal.name
      from animal

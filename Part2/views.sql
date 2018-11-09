@@ -27,5 +27,9 @@ create view facts_consults as
           count(distinct prescription.name_med) as num_medications
    from consult
    left join prescription on consult.date_timestamp = prescription.date_timestamp
+                          and consult.name = prescription.name
+                          and consult.vat_owner = prescription.vat_owner
    left join vet_procedure on consult.date_timestamp = vet_procedure.date_timestamp
+                           and consult.name = vet_procedure.name
+                           and consult.vat_owner = vet_procedure.vat_owner
    group by consult.date_timestamp);
