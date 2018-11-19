@@ -1,0 +1,14 @@
+version: "3"
+services:
+  lamp:
+    image: glats/alpine-lamp
+    container_name: lamp
+    restart: always
+    ports:
+      - "80:80"
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+    volumes:
+      - .:/var/www/localhost/htdocs/
+#mysql -u root -p -h 127.0.0.1
