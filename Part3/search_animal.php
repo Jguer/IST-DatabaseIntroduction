@@ -29,13 +29,30 @@
   </nav>
 
   <div>
-    <h2>Search patient by vat</h2>
-    <form action="search_animal.php" method="post">
-        <p>VAT: <input type="text" name="owner_vat"></p>
-        <p>Name: <input type="text" name="owner_name"></p>
-        <p>Pet Name: <input type="text" name="animal_name"></p>
-        <p><input type="submit" value="Submit"></p>
-    </form>
+    <h2>Search results</h2>
+    <?php
+    $owner_name = (empty($_REQUEST['owner_name']) ? '' : $_REQUEST['owner_name']);
+    $owner_vat = (empty($_REQUEST['owner_vat']) ? '' : $_REQUEST['owner_vat']);
+    $animal_name = (empty($_REQUEST['animal_name']) ? '' : $_REQUEST['animal_name']);
+    $connection = require_once('db.php');
+    $stmt = $connection->prepare("SELECT number, name FROM Patient WHERE name LIKE :owner_name");
+    echo("<h4>Results for: $animal_name belonging to $owner_name </h4>");
+    $owner_name = '%'.$owner_name.'%';
+    $stmt->bindParam(':owner_name', $owner_name);
+    if ( !$stmt->execute() ) {
+        echo("<p>An error occurred!</p>");
+        exit();
+    }
+    if ($stmt->rowCount() > 0 ) {
+        echo("<table border=1 cellpadding='5'>");
+        echo("<thead><tr><th>Owner Name</th><th>Owner VAT</th><th>Animal</th></tr></thead>");
+        echo("</table>");
+    } else {
+        echo("<p>No animal matching the search was found</p>");
+        include('new_animal.php');
+    }
+    $connection = NULL;
+    ?>
   </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
