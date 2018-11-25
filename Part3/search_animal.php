@@ -45,7 +45,12 @@
     }
     if ($stmt->rowCount() > 0 ) {
         echo("<table border=1 cellpadding='5'>");
-        echo("<thead><tr><th>Owner Name</th><th>Owner VAT</th><th>Animal</th></tr></thead>");
+        echo("<thead><tr><th>Animal</th><th>Owner VAT</th><th>Animal</th></tr></thead>");
+        foreach($stmt as $animal) {
+          echo("<tr><td><a href='consult_info.php?vat=".$animal['vat']."&name=".$animal['name']."'>".$animal['name']."</a></td>");
+          echo("<td>.$animal['vat'].</td>");
+          echo("</tr>");
+        }
         echo("</table>");
     } else {
         echo("<p>No animal matching the search was found</p>");
