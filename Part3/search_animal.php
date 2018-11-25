@@ -35,7 +35,7 @@
     $owner_vat = (empty($_REQUEST['owner_vat']) ? '' : $_REQUEST['owner_vat']);
     $animal_name = (empty($_REQUEST['animal_name']) ? '' : $_REQUEST['animal_name']);
     $connection = require_once('db.php');
-    $stmt = $connection->prepare("SELECT number, name FROM Patient WHERE name LIKE :owner_name");
+    $stmt = $connection->prepare("SELECT number, name FROM person WHERE name LIKE :owner_name");
     echo("<h4>Results for: $animal_name belonging to $owner_name </h4>");
     $owner_name = '%'.$owner_name.'%';
     $stmt->bindParam(':owner_name', $owner_name);
