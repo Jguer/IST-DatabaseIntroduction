@@ -235,5 +235,5 @@ create table produced_indicator
      primary key(name, vat_owner, date_timestamp, num, indicator_name), 
      foreign key(name, vat_owner, date_timestamp, num) references 
      test_procedure(name, vat_owner, date_timestamp, num) on delete cascade, 
-     foreign key(indicator_name) references indicator(name) 
+     foreign key(indicator_name) references indicator(name) on update cascade
   ); 

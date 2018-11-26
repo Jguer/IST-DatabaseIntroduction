@@ -16,6 +16,11 @@ insert into person (VAT,name,address_street,address_city,address_zip) values
 (735916821,'Jean Doc','Avenida da Liberdade','Lisboa','1700-000'),
 (555916111,'Afonsina de Albuquerque','Avenida do Conquistador','Guimaraes','2100-123');
 
+insert into phone_number values
+(293121444,912223335),
+(562323322,934447235),
+(357812587,215556654);
+
 insert into veterinary (VAT,specialization,bio) values 
 (293121444,"surgery","A very nice man"),
 (812924465,"surgery","A very regal man"),
