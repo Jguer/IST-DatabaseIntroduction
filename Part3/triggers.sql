@@ -5,30 +5,55 @@ drop function if exists number_consults;
 drop procedure if exists milligrams2centigrams;
 
 /* 1 */
-/*create trigger animal_age after
+delimiter $$
+create trigger animal_age after
 insert on consult
-for each row begin DECLARE current_age integer;
-select age into current_age
-from animal
-where animal.name = new.name;
-  update animal
-  set status = YEAR(new.date_timestamp) - current_age WHERE animal.name= new.name; end;
+for each row 
+begin 
+	declare b_y integer;
+	select birth_year into b_y
+	from animal
+	where animal.name = new.name and
+		  animal.vat = new.vat_owner;
+	  update animal
+	  set age = YEAR(new.date_timestamp) - birth_year 
+	  where animal.name = new.name; 
+end$$
+delimiter ;
 
 /* 2 */
-/*create trigger ensure_veterinary after
+delimiter $$
+create trigger ensure_veterinary before
 insert on veterinary
-for each row begin
-delete
+for each row 
+begin
+declare number_assistants integer;
+select count(distinct assistant.vat) into number_assistants
 from assistant
-where assistant.vat = new.vat; end;
+where assistant.vat = new.vat;
+if number_assistants>0 then
+	signal sqlstate '45000'
+set MESSAGE_TEXT = 'There is already an assistant with that VAT';
+end if;
+end$$
+delimiter ;
 
 
-create trigger ensure_assistant after
+delimiter $$
+create trigger ensure_assistant before
 insert on assistant
-for each row begin
-delete
+for each row 
+begin
+declare number_doctors integer;
+select count(distinct veterinary.vat) into number_doctors
 from veterinary
-where veterinary.vat = new.vat; end;
+where veterinary.vat = new.vat;
+if number_doctors>0 then
+	signal sqlstate '45000'
+set MESSAGE_TEXT = 'There is already a veterinary with that VAT';
+end if;
+end$$
+delimiter ;
 
 /* 3 */
 
