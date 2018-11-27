@@ -32,29 +32,102 @@
     <h2>Search results</h2>
     <?php
     $owner_name = (empty($_REQUEST['owner_name']) ? '' : $_REQUEST['owner_name']);
-    $owner_vat = (empty($_REQUEST['owner_vat']) ? '' : $_REQUEST['owner_vat']);
+    $client_vat = (empty($_REQUEST['client_vat']) ? '' : $_REQUEST['client_vat']);
     $animal_name = (empty($_REQUEST['animal_name']) ? '' : $_REQUEST['animal_name']);
-    $connection = require_once('db.php');
-    $stmt = $connection->prepare("SELECT number, name FROM person WHERE name LIKE :owner_name");
-    echo("<h4>Results for: $animal_name belonging to $owner_name </h4>");
-    $owner_name = '%'.$owner_name.'%';
-    $stmt->bindParam(':owner_name', $owner_name);
-    if ( !$stmt->execute() ) {
-        echo("<p>An error occurred!</p>");
-        exit();
+
+    $host = "db.tecnico.ulisboa.pt";
+    $user = "***REMOVED***";
+    $pass = "***REMOVED***"; #my_sql reset pass
+    $dsn = "mysql:host=$host;dbname=$user";
+    try
+    {
+      $connection = new PDO($dsn, $user, $pass);
     }
-    if ($stmt->rowCount() > 0 ) {
-        echo("<table border=1 cellpadding='5'>");
-        echo("<thead><tr><th>Animal</th><th>Owner VAT</th><th>Animal</th></tr></thead>");
-        foreach($stmt as $animal) {
-          echo("<tr><td><a href='consult_info.php?vat=".$animal['vat']."&name=".$animal['name']."'>".$animal['name']."</a></td>");
-          echo("<td>.$animal['vat'].</td>");
-          echo("</tr>");
+    catch(PDOException $exception)
+    {
+      echo("<p>Error: ");
+      echo($exception->getMessage());
+      echo("</p>");
+      exit();
+    }
+
+    # animal query result
+    $sql = "SELECT animal.name as animal_name, animal.vat as vat, owner.name as owner_name 
+            FROM animal, person as owner 
+            where animal.name = '$animal_name' and animal.vat = owner.vat and owner.name like '%$owner_name%'";
+    $result_animal = $connection->query($sql);
+    if ($result_animal == FALSE)
+    {
+      $info = $connection->errorInfo();
+      echo("<p>Error: {$info[2]}</p>");
+      exit();
+    }
+    # client query result
+    $sql = "SELECT * 
+            FROM client 
+            where client.vat = '$client_vat'";
+    $result_client = $connection->query($sql);
+    if ($result_client == FALSE)
+    {
+      $info = $connection->errorInfo();
+      echo("<p>Error: {$info[2]}</p>");
+      exit();
+    }
+    
+    if($result_animal->rowCount() > 0) {
+      echo("<table border=\"1\">");
+      echo("<tr><td>Animal Name</td><td>Owner Name</td><td>Owner VAT</td><td>Client involved in previous Consults</tr>");
+      foreach($result_animal as $row)
+      {
+        echo("<tr><td>");
+        echo($row['animal_name']);
+        echo("</td><td>");
+        echo($row['owner_name']);
+        echo("</td><td>");
+        echo($row['vat']);
+        echo("</td><td>");
+        if ($result_client->rowCount() == 0){
+          echo("No such client in database");
         }
-        echo("</table>");
-    } else {
+        else{
+          $animal_name = $row['animal_name'];
+          $animal_vat = $row['vat'];
+          $sql = "SELECT distinct consult.date_timestamp
+                  FROM consult
+                  where consult.name = '$animal_name' and consult.vat_owner = '$animal_vat'
+                  and consult.vat_client = '$client_vat'";
+          $result_client = $connection->query($sql);
+          if ($result_client == FALSE)
+          {
+            $info = $connection->errorInfo();
+            echo("<p>Error: {$info[2]}</p>");
+            exit();
+          }
+          $client_status = $result_client->rowCount();
+          echo($client_status);
+          echo(" times");
+        }
+        echo("</td><td>");
+        echo("<a href=\"registry.php?animal_name=");
+        echo($row['animal_name']);
+        echo("&animal_vat=");
+        echo($row['vat']);
+        echo("&client_vat=");
+        echo($client_vat);
+        echo("\">Insert Consult</a></td>\n");
+        echo("</td></tr>\n");
+      }
+      echo("</table>");
+    }
+    else {
         echo("<p>No animal matching the search was found</p>");
-        include('new_animal.php');
+        echo("<a href=\"new_animal.php?animal_name=");
+        echo($animal_name);
+        echo("&animal_vat=");
+        echo($client_vat);
+        echo("&owner_name=");
+        echo($owner_name);
+        echo("\">Insert Animal</a></td>\n");
     }
     $connection = NULL;
     ?>
