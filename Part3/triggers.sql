@@ -16,7 +16,7 @@ begin
 	where animal.name = new.name and
 		  animal.vat = new.vat_owner;
 	  update animal
-	  set age = YEAR(new.date_timestamp) - birth_year 
+	  set age = YEAR(CURDATE()) - birth_year 
 	  where animal.name = new.name; 
 end$$
 delimiter ;
