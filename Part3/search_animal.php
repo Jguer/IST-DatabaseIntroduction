@@ -104,7 +104,7 @@
           echo(" times");
         }
         echo("</td><td>");
-        echo("<a href=\"registry.php?animal_name=");
+        echo("<a href=\"consults.php?animal_name=");
         echo($row['animal_name']);
         echo("&animal_vat=");
         echo($row['vat']);
