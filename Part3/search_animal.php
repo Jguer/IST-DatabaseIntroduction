@@ -54,25 +54,32 @@
     # animal query result
     $sql = "SELECT animal.name as animal_name, animal.vat as vat, owner.name as owner_name 
             FROM animal, person as owner 
-            where animal.name = '$animal_name' and animal.vat = owner.vat and owner.name like '%$owner_name%'";
-    $result_animal = $connection->query($sql);
+            where animal.name = :animal_name and animal.vat = owner.vat and owner.name like :owner_name";
+    $result_animal = $connection->prepare($sql);
+    $result_animal->bindParam(':animal_name', $animal_name);
+    $owner_name_like = "%".$owner_name."%";
+    $result_animal->bindParam(':owner_name', $owner_name_like);
     if ($result_animal == FALSE)
     {
       $info = $connection->errorInfo();
       echo("<p>Error: {$info[2]}</p>");
       exit();
     }
+    $result_animal->execute();
+    
     # client query result
     $sql = "SELECT * 
             FROM client 
-            where client.vat = '$client_vat'";
-    $result_client = $connection->query($sql);
+            where client.vat = :client_vat";
+    $result_client = $connection->prepare($sql);
+    $result_client->bindParam(':client_vat', $client_vat);
     if ($result_client == FALSE)
     {
       $info = $connection->errorInfo();
       echo("<p>Error: {$info[2]}</p>");
       exit();
     }
+    $result_client->execute();
     
     if($result_animal->rowCount() > 0) {
       echo("<table border=\"1\">");
@@ -94,15 +101,19 @@
           $animal_vat = $row['vat'];
           $sql = "SELECT distinct consult.date_timestamp
                   FROM consult
-                  where consult.name = '$animal_name' and consult.vat_owner = '$animal_vat'
-                  and consult.vat_client = '$client_vat'";
-          $result_client = $connection->query($sql);
+                  where consult.name = :animal_name and consult.vat_owner = :animal_vat
+                  and consult.vat_client = :client_vat";
+          $result_client = $connection->prepare($sql);
+          $result_client->bindParam(':animal_name', $animal_name);
+          $result_client->bindParam(':animal_vat', $animal_vat);
+          $result_client->bindParam(':client_vat', $client_vat);
           if ($result_client == FALSE)
           {
             $info = $connection->errorInfo();
             echo("<p>Error: {$info[2]}</p>");
             exit();
           }
+          $result_client->execute();
           $client_status = $result_client->rowCount();
           echo($client_status);
           echo(" times");

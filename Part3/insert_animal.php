@@ -40,14 +40,6 @@
     $animal_age = date("Y") - $animal_birth_year;
     $owner_name = (empty($_REQUEST['new_client_name']) ? '' : $_REQUEST['new_client_name']);
 
-    echo($animal_vat);
-    echo($animal_name);
-    echo($animal_colour);
-    echo($animal_gender);
-    echo($animal_birth_year);
-    echo($animal_species);
-    echo($animal_age);
-
     $host = "db.tecnico.ulisboa.pt";
     $user = "***REMOVED***";
     $pass = "***REMOVED***";
@@ -65,42 +57,59 @@
     }
     $sql = "SELECT * 
             FROM client 
-            where client.vat = '$animal_vat'";
-    $result_client = $connection->query($sql);
+            where client.vat = :animal_vat";
+    $result_client = $connection->prepare($sql);
     if ($result_client == FALSE)
     {
       $info = $connection->errorInfo();
       echo("<p>Error: {$info[2]}</p>");
       exit();
     }
+    $result_client->bindParam(':animal_vat', $animal_vat);
+    $result_client->execute();
     if ($result_client->rowCount() == 0){
           $sql = "SELECT * 
             FROM person 
-            where person.vat = '$animal_vat'";
-            $result_person = $connection->query($sql);
+            where person.vat = :animal_vat";
+            $result_person = $connection->prepare($sql);
             if ($result_person == FALSE)
             {
               $info = $connection->errorInfo();
               echo("<p>Error: {$info[2]}</p>");
               exit();
             }
+            $result_person->bindParam(':animal_vat', $animal_vat);
+            $result_person->execute();
             if ($result_person->rowCount() == 0){
-                $sql = "INSERT INTO person VALUES ('$animal_vat', '$owner_name', '','','')";
-                $nrows = $connection->exec($sql);
-                if($nrows>0){
+                $sql = "INSERT INTO person VALUES (:animal_vat, :owner_name, '','','')";
+                $sth = $connection->prepare($sql);
+                $sth->bindParam(':animal_vat', $animal_vat);
+                $sth->bindParam(':owner_name', $owner_name);
+                $sth->execute();
+                if($sth->rowCount()>0){
                   echo("<p>Person sucessfully inserted.</p>");
                 }
             }
-            $sql = "INSERT INTO client VALUES ('$animal_vat')";
-            $nrows = $connection->exec($sql);
-            if($nrows>0){
+            $sql = "INSERT INTO client VALUES (:animal_vat)";
+            $sth = $connection->prepare($sql);
+            $sth->bindParam(':animal_vat', $animal_vat);
+            $sth->execute();
+            if($sth->rowCount()>0){
                   echo("<p>Client sucessfully inserted.</p>");
             }
         }
-    $sql = "INSERT INTO animal VALUES ('$animal_name', '$animal_vat', '$animal_species', 
-                                      '$animal_colour', '$animal_gender', '$animal_birth_year', '$animal_age')";
-    $nrows = $connection->exec($sql);
-    if($nrows>0){
+    $sql = "INSERT INTO animal VALUES (:animal_name, :animal_vat, :animal_species, 
+                                      :animal_colour, :animal_gender, :animal_birth_year, :animal_age)";
+    $sth = $connection->prepare($sql);
+    $sth->bindParam(':animal_name', $animal_name);
+    $sth->bindParam(':animal_vat', $animal_vat);
+    $sth->bindParam(':animal_species', $animal_species);
+    $sth->bindParam(':animal_colour', $animal_colour);
+    $sth->bindParam(':animal_gender', $animal_gender);
+    $sth->bindParam(':animal_birth_year', $animal_birth_year);
+    $sth->bindParam(':animal_age', $animal_age);
+    $sth->execute();
+    if($sth->rowCount()>0){
       echo("<p>Animal sucessfully inserted.</p>");
     }
     $connection = null;
