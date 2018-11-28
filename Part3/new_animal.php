@@ -32,21 +32,7 @@
                     <td>
                     <select name="new_animal_species">
                         <?php
-                            $host = "db.ist.utl.pt";
-                            $user = "***REMOVED***";
-                            $pass = "***REMOVED***";
-                            $dsn = "mysql:host=$host;dbname=$user";
-                            try
-                            {
-                            $connection = new PDO($dsn, $user, $pass);
-                            }
-                            catch(PDOException $exception)
-                            {
-                            echo("<p>Error: ");
-                            echo($exception->getMessage());
-                            echo("</p>");
-                            exit();
-                            }
+                            $connection = require_once('db.php');
                             $sql = "SELECT species.name FROM species";
                             $result = $connection->query($sql);
                             if ($result == FALSE)

@@ -34,26 +34,11 @@
     $owner_name = (empty($_REQUEST['owner_name']) ? '' : $_REQUEST['owner_name']);
     $client_vat = (empty($_REQUEST['client_vat']) ? '' : $_REQUEST['client_vat']);
     $animal_name = (empty($_REQUEST['animal_name']) ? '' : $_REQUEST['animal_name']);
-
-    $host = "db.tecnico.ulisboa.pt";
-    $user = "***REMOVED***";
-    $pass = "***REMOVED***"; #my_sql reset pass
-    $dsn = "mysql:host=$host;dbname=$user";
-    try
-    {
-      $connection = new PDO($dsn, $user, $pass);
-    }
-    catch(PDOException $exception)
-    {
-      echo("<p>Error: ");
-      echo($exception->getMessage());
-      echo("</p>");
-      exit();
-    }
+    $connection = require_once('db.php');
 
     # animal query result
-    $sql = "SELECT animal.name as animal_name, animal.vat as vat, owner.name as owner_name 
-            FROM animal, person as owner 
+    $sql = "SELECT animal.name as animal_name, animal.vat as vat, owner.name as owner_name
+            FROM animal, person as owner
             where animal.name = :animal_name and animal.vat = owner.vat and owner.name like :owner_name";
     $result_animal = $connection->prepare($sql);
     $result_animal->bindParam(':animal_name', $animal_name);
@@ -66,10 +51,10 @@
       exit();
     }
     $result_animal->execute();
-    
+
     # client query result
-    $sql = "SELECT * 
-            FROM client 
+    $sql = "SELECT *
+            FROM client
             where client.vat = :client_vat";
     $result_client = $connection->prepare($sql);
     $result_client->bindParam(':client_vat', $client_vat);
@@ -80,7 +65,7 @@
       exit();
     }
     $result_client->execute();
-    
+
     if($result_animal->rowCount() > 0) {
       echo("<table border=\"1\">");
       echo("<tr><td>Animal Name</td><td>Owner Name</td><td>Owner VAT</td><td>Client involved in previous Consults</tr>");

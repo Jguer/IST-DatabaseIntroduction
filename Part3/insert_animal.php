@@ -44,19 +44,10 @@
     $user = "***REMOVED***";
     $pass = "***REMOVED***";
     $dsn = "mysql:host=$host;dbname=$user";
-    try
-    {
-      $connection = new PDO($dsn, $user, $pass);
-    }
-    catch(PDOException $exception)
-    {
-      echo("<p>Error: ");
-      echo($exception->getMessage());
-      echo("</p>");
-      exit();
-    }
+    $connection = require_once('db.php');
+
     $sql = "SELECT * 
-            FROM client 
+            FROM client
             where client.vat = :animal_vat";
     $result_client = $connection->prepare($sql);
     if ($result_client == FALSE)
@@ -68,8 +59,8 @@
     $result_client->bindParam(':animal_vat', $animal_vat);
     $result_client->execute();
     if ($result_client->rowCount() == 0){
-          $sql = "SELECT * 
-            FROM person 
+          $sql = "SELECT *
+            FROM person
             where person.vat = :animal_vat";
             $result_person = $connection->prepare($sql);
             if ($result_person == FALSE)
@@ -98,7 +89,7 @@
                   echo("<p>Client sucessfully inserted.</p>");
             }
         }
-    $sql = "INSERT INTO animal VALUES (:animal_name, :animal_vat, :animal_species, 
+    $sql = "INSERT INTO animal VALUES (:animal_name, :animal_vat, :animal_species,
                                       :animal_colour, :animal_gender, :animal_birth_year, :animal_age)";
     $sth = $connection->prepare($sql);
     $sth->bindParam(':animal_name', $animal_name);
