@@ -50,6 +50,7 @@
       exit();
     }
     $result_consult->execute();
+    echo("<p> Consult list</p>");
     echo("<table border=\"0\" cellspacing=\"5\">\n");
     foreach($result_consult as $row)
       {
@@ -66,6 +67,15 @@
         echo("</tr>\n");
       }
       echo("</table>\n");
+
+      echo("<br>");
+      echo("<a href=\"new_consult.php?animal_name=");
+      echo($animal_name);
+      echo("&animal_vat=");
+      echo($animal_vat);
+      echo("&client_vat=");
+      echo($client_vat);
+      echo("\">Insert New Consult</a>");
     $connection = NULL;
     ?>
   </div>

@@ -94,7 +94,7 @@ create table consult
   ( 
      name           varchar(255), 
      vat_owner      integer, 
-     date_timestamp timestamp, 
+     date_timestamp timestamp default CURRENT_TIMESTAMP, 
      s              varchar(255), 
      o              varchar(255), 
      a              varchar(255), 

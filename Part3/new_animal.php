@@ -3,9 +3,24 @@
     <body>
         <form action="insert_animal.php" method="post">
             <table>
-                <p><input type="hidden" name="new_animal_name" value="<?=$_REQUEST['animal_name']?>"/></p>
-                <p><input type="hidden" name="new_client_vat" value="<?=$_REQUEST['animal_vat']?>"/></p>
-                <p><input type="hidden" name="new_client_name" value="<?=$_REQUEST['owner_name']?>"/></p>
+                <tr>
+                    <td align='right'>Animal Name:</td>
+                    <td>
+                        <p><input type="text" name="new_animal_name" value="<?=$_REQUEST['animal_name']?>" readonly/></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td align='right'>Client VAT:</td>
+                    <td>
+                        <p><input type="text" name="new_client_vat" value="<?=$_REQUEST['animal_vat']?>" readonly/></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td align='right'>Client Name (if new in database):</td>
+                    <td>
+                        <p><input type="text" name="new_client_name" value="<?=$_REQUEST['owner_name']?>" readonly/></p>
+                    </td>
+                </tr>
                 <!-- <tr>
                     <td align='right'>Name:</td>
                     <td><input type="text" name="new_animal_name"></td>
@@ -19,7 +34,7 @@
                     <td>
                         <select name="new_animal_gender">
                             <option value="male">Male</option>
-                            <option value="male">Female</option>
+                            <option value="female">Female</option>
                         </select>
                     </td>
                 </tr>

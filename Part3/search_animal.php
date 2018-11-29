@@ -67,12 +67,21 @@
     $result_client->execute();
 
     if($result_animal->rowCount() > 0) {
+      echo("<p>Click on animal name to see and/or insert consults.</p>");
       echo("<table border=\"1\">");
-      echo("<tr><td>Animal Name</td><td>Owner Name</td><td>Owner VAT</td><td>Client involved in previous Consults</tr>");
+      echo("<tr><td>Animal Name</td><td>Owner Name</td><td>Owner VAT</td><td>Client involved in previous consults</td></tr>");
       foreach($result_animal as $row)
       {
         echo("<tr><td>");
+        echo("<a href=\"consults.php?animal_name=");
         echo($row['animal_name']);
+        echo("&animal_vat=");
+        echo($row['vat']);
+        echo("&client_vat=");
+        echo($client_vat);
+        echo("\">");
+        echo($row['animal_name']);
+        echo("</a></td>\n");
         echo("</td><td>");
         echo($row['owner_name']);
         echo("</td><td>");
@@ -103,15 +112,16 @@
           echo($client_status);
           echo(" times");
         }
-        echo("</td><td>");
-        echo("<a href=\"consults.php?animal_name=");
+        echo("</td></tr>");
+
+        /*echo("<a href=\"consults.php?animal_name=");
         echo($row['animal_name']);
         echo("&animal_vat=");
         echo($row['vat']);
         echo("&client_vat=");
         echo($client_vat);
         echo("\">Insert Consult</a></td>\n");
-        echo("</td></tr>\n");
+        echo("</td></tr>\n");*/
       }
       echo("</table>");
     }
