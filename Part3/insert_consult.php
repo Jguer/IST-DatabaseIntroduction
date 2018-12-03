@@ -21,9 +21,9 @@
       </div>
       <ul class="nav navbar-nav">
         <li><a href="index.html">Home</a></li>
-        <li class="active"><a href="search.html">1 - Search and Insertion</a></li>
-        <li><a href="consult.html">2 - Consults</a></li>
-        <li><a href="registry.html">3 - Registry</a></li>
+        <li><a href="search.html">1 - Search and Insertion</a></li>
+        <li class="active"><a>2 - Consults</a></li>
+        <li><a>3 - Registry</a></li>
       </ul>
     </div>
   </nav>
@@ -68,17 +68,17 @@
     }
     # INSERT DIAGNOSIS
 
-    #$sql = "INSERT INTO consult_diagnosis 
+    #$sql = "INSERT INTO consult_diagnosis
     #        VALUES ('1', '$animal_name', '$animal_vat', '$data')";
     #$sth = $connection->prepare($sql);
     #$connection->exec($sql);
-    #$sql = "INSERT INTO consult_diagnosis 
+    #$sql = "INSERT INTO consult_diagnosis
     #        VALUES ('1', 'ola', '122', '2000')";
     #$sth = $connection->prepare($sql);
     #$connection->exec($sql);
 
 
-    $sql = "INSERT INTO consult_diagnosis 
+    $sql = "INSERT INTO consult_diagnosis
             VALUES (:code, :animal_name, :animal_vat, :date_timestamp)";
     $sth = $connection->prepare($sql);
     $sth->bindParam(':animal_name', $animal_name);

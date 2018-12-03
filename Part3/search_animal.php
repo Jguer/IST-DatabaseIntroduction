@@ -22,8 +22,8 @@
       <ul class="nav navbar-nav">
         <li><a href="index.html">Home</a></li>
         <li class="active"><a href="search.html">1 - Search and Insertion</a></li>
-        <li><a href="consult.html">2 - Consults</a></li>
-        <li><a href="registry.html">3 - Registry</a></li>
+        <li><a>2 - Consults</a></li>
+        <li><a>3 - Registry</a></li>
       </ul>
     </div>
   </nav>

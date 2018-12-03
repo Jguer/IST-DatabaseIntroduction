@@ -22,8 +22,8 @@
       <ul class="nav navbar-nav">
         <li><a href="index.html">Home</a></li>
         <li><a href="search.html">1 - Search and Insertion</a></li>
-        <li class="active"><a href="consult.html">2 - Consults</a></li>
-        <li><a href="registry.html">3 - Registry</a></li>
+        <li class="active"><a>2 - Consults</a></li>
+        <li><a>3 - Registry</a></li>
       </ul>
     </div>
   </nav>
@@ -86,7 +86,7 @@
       $sql = "SELECT diagnosis_code.code as code,
                      diagnosis_code.name as disease
               FROM consult_diagnosis, diagnosis_code
-              where consult_diagnosis.name = :animal_name and consult_diagnosis.vat_owner = :animal_vat 
+              where consult_diagnosis.name = :animal_name and consult_diagnosis.vat_owner = :animal_vat
               and consult_diagnosis.date_timestamp = :date_timestamp and consult_diagnosis.code = diagnosis_code.code";
       $result_consult = $connection->prepare($sql);
       $result_consult->bindParam(':animal_name', $animal_name);
@@ -123,7 +123,7 @@
                      prescription.dosage as med_dosage,
                      prescription.regime as med_regime
               FROM prescription
-              where prescription.name = :animal_name and prescription.vat_owner = :animal_vat 
+              where prescription.name = :animal_name and prescription.vat_owner = :animal_vat
               and prescription.date_timestamp = :date_timestamp";
       $result_consult = $connection->prepare($sql);
       $result_consult->bindParam(':animal_name', $animal_name);
