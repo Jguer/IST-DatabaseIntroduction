@@ -94,6 +94,17 @@
     if($sth->rowCount()>0){
       echo("<p>Diagnosis sucessfully inserted.</p>");
     }
+
+
+      echo("<br>");
+      echo("<a href=\"registry.php?animal_name=");
+      echo($animal_name);
+      echo("&animal_vat=");
+      echo($animal_vat);
+      echo("&date_timestamp=");
+      echo($data);
+      echo("\">Insert New Blood Test</a>");
+
     $connection = null;
 
     ?>

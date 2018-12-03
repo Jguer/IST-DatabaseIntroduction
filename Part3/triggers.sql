@@ -56,7 +56,20 @@ end$$
 delimiter ;
 
 /* 3 */
-
+delimiter $$
+create trigger phone_number_trigger
+before insert on phone_number
+for each row
+begin
+	declare number_phones integer default 0;
+	select count(*) into number_phones
+	from phone_number where phone = new.phone;
+    if number_phones != 0 then 
+		signal  sqlstate '45000'
+        set MESSAGE_TEXT = "Phone Number already exists";
+	end if;
+end$$
+delimiter ;
 
 /* 4 */
 delimiter $$
