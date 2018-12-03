@@ -170,7 +170,11 @@ insert into indicator values
 ("Sugar in blood",90,"milligrams","Milligrams of sugar in blood"),
 ("Fat in blood",200,"milligrams","Milligrams of fat in blood"),
 ("creatinine level",0.8,"grams","Grams of creatinine in blood"),
-("pH",7,"none","pH of urine");
+("pH",7,"none","pH of urine"),
+("White Blood Cell Count",5,"trillion cell/L","white blood cell count"),
+("Number of Neutrophils",5,"neutrophils/mm3","number of neutrophils"),
+("Number of Lymphocytes",5,"lymphocytes/mm3","number of lymphocytes"),
+("Number of Monocytes",5,"monocytes/mm3","number of monocytes");
 
 insert into test_procedure values
 ("minnie",357812587,"2017-02-06 16:21:15",2,"blood"),

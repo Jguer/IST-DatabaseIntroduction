@@ -34,7 +34,29 @@
                 <p>Animal Name: <input type="text" name="animal_name" value="<?=$_REQUEST['animal_name']?>" readonly/></p>
                 <p>Animal VAT: <input type="text" name="animal_vat" value="<?=$_REQUEST['animal_vat']?>" readonly/></p>
                 <p>Date: <input type="text" name="date_timestamp" value="<?=$_REQUEST['date_timestamp']?>" readonly/></p>
-                <p>Assistant VAT: <input type="text" name="assist_vat"></p>
+                <p>Assistant VAT: <select name="assist_vat">
+                        <?php
+                            $connection = require_once('db.php');
+                            $sql = "SELECT person.name as vname, assistant.vat as vassist 
+                                    FROM assistant, person
+                                    WHERE person.vat = assistant.vat";
+                            $result = $connection->query($sql);
+                            if ($result == FALSE)
+                            {
+                            $info = $connection->errorInfo();
+                            echo("<p>Error: {$info[2]}</p>");
+                            exit();
+                            }
+                            foreach($result as $row)
+                            {
+                                $vname = $row['vname'];
+                                $vassist = $row['vassist'];
+                                echo("<option value=\"$vassist\">$vname, $vassist</option>");
+                            }
+
+                            $connection = null;
+                        ?>
+                     </select>
                 <p>White blood cell count: <input type="text" name="white_cells"></p>
                 <p>Number of neutrophils: <input type="text" name="neutrophils"></p>
                 <p>Number of lymphocytes: <input type="text" name="lymphocytes"></p>
