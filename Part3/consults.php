@@ -51,7 +51,7 @@
     }
     $result_consult->execute();
     echo("<p> Consult list</p>");
-    echo("<table border=\"0\" cellspacing=\"5\">\n");
+    echo("<table border=\"1\" cellspacing=\"5\">\n");
     foreach($result_consult as $row)
       {
         echo("<tr>\n");
@@ -63,7 +63,14 @@
         echo($row['date_timestamp']);
         echo("\">");
         echo($row['date_timestamp']);
-        echo("</a></td>\n");
+        echo("</a></td>");
+        echo("<td><a href=\"registry.php?animal_name=");
+        echo($animal_name);
+        echo("&animal_vat=");
+        echo($animal_vat);
+        echo("&date_timestamp=");
+        echo($row['date_timestamp']);
+        echo("\">Insert New Blood Test</a></td>\n");
         echo("</tr>\n");
       }
       echo("</table>\n");

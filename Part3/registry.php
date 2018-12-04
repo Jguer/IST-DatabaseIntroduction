@@ -36,31 +36,31 @@
       <p>Date: <input type="text" name="date_timestamp" value="<?=$_REQUEST['date_timestamp']?>" readonly /></p>
       <p>Assistant VAT: <select name="assist_vat">
           <?php
-                            $connection = require_once('db.php');
-                            $sql = "SELECT person.name as vname, assistant.vat as vassist
-                                    FROM assistant, person
-                                    WHERE person.vat = assistant.vat";
-                            $result = $connection->query($sql);
-                            if ($result == FALSE)
-                            {
-                            $info = $connection->errorInfo();
-                            echo("<p>Error: {$info[2]}</p>");
-                            exit();
-                            }
-                            foreach($result as $row)
-                            {
-                                $vname = $row['vname'];
-                                $vassist = $row['vassist'];
-                                echo("<option value=\"$vassist\">$vname, $vassist</option>");
-                            }
+                $connection = require_once('db.php');
+                $sql = "SELECT person.name as vname, assistant.vat as vassist
+                        FROM assistant, person
+                        WHERE person.vat = assistant.vat";
+                $result = $connection->query($sql);
+                if ($result == FALSE)
+                {
+                $info = $connection->errorInfo();
+                echo("<p>Error: {$info[2]}</p>");
+                exit();
+                }
+                foreach($result as $row)
+                {
+                    $vname = $row['vname'];
+                    $vassist = $row['vassist'];
+                    echo("<option value=\"$vassist\">$vname, $vassist</option>");
+                }
 
-                            $connection = null;
-                        ?>
+                $connection = null;
+            ?>
         </select>
-        <p>White blood cell count: <input type="text" name="white_cells"></p>
-        <p>Number of neutrophils: <input type="text" name="neutrophils"></p>
-        <p>Number of lymphocytes: <input type="text" name="lymphocytes"></p>
-        <p>Number of monocytes: <input type="text" name="monocytes"></p>
+        <p>White blood cell count: <input type="text" name="white_cells" value=0></p>
+        <p>Number of neutrophils: <input type="text" name="neutrophils" value=0></p>
+        <p>Number of lymphocytes: <input type="text" name="lymphocytes" value=0></p>
+        <p>Number of monocytes: <input type="text" name="monocytes" value=0></p>
         <p><input type="submit" value="Submit"></p>
     </form>
   </div>

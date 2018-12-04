@@ -22,8 +22,8 @@
       <ul class="nav navbar-nav">
         <li><a href="index.html">Home</a></li>
         <li><a href="search.html">1 - Search and Insertion</a></li>
-        <li class="active"><a>2 - Consults</a></li>
-        <li><a>3 - Registry</a></li>
+        <li><a>2 - Consults</a></li>
+        <li class="active"><a>3 - Registry</a></li>
       </ul>
     </div>
   </nav>
@@ -41,77 +41,127 @@
     $date_timestamp = (empty($_REQUEST['date_timestamp']) ? '' : $_REQUEST['date_timestamp']);
     $animal_name = (empty($_REQUEST['animal_name']) ? '' : $_REQUEST['animal_name']);
 
-    echo("<p>PARAMETERS</p>");
-    echo($assist_vat);
-    echo($animal_name);
-    echo($animal_vat);
-    echo($date_timestamp);
-    echo($white_cells);
-    echo($neutrophils);
-    echo($lymphocytes);
-    echo($monocytes);
+    #echo("<p>PARAMETERS</p>");
+    #echo($assist_vat);
+    #echo($animal_name);
+    #echo($animal_vat);
+    #echo($date_timestamp);
+    #echo($white_cells);
+    #echo($neutrophils);
+    #echo($lymphocytes);
+    #echo($monocytes);
 
     /* enviar esta informacao a partir do consultdata.php*/
 
     $connection = require_once('db.php');
 
 
-    $sql = "INSERT INTO vet_procedure VALUES (:animal_name, :animal_vat, :date_timestamp, '1', 'blood test')";
+    #get procedure num
+    $sql = "SELECT count(distinct vet_procedure.num) as n from vet_procedure
+            where vet_procedure.name = '$animal_name' 
+                    and vet_procedure.vat_owner = '$animal_vat'
+                    and vet_procedure.date_timestamp = '$date_timestamp'";
+    $result = $connection->query($sql);
+    if ($result == FALSE)
+    {
+    $info = $connection->errorInfo();
+    echo("<p>Error: {$info[2]}</p>");
+    exit();
+    }
+    $row = $result->fetch();
+    $n = $row['n'] + 1;
+
+    $go = 1;
+    $connection->beginTransaction();
+
+
+    $sql = "INSERT INTO vet_procedure VALUES (:animal_name, :animal_vat, :date_timestamp, :n, 'blood test')";
     #este ultimo numero e o corresponde ao autoincrement da tabela do test_procedure
 
     $sth = $connection->prepare($sql);
     $sth->bindParam(':animal_name', $animal_name);
     $sth->bindParam(':animal_vat', $animal_vat);
     $sth->bindParam(':date_timestamp', $date_timestamp);
+    $sth->bindParam(':n', $n);
     $sth->execute();
+    if($sth->rowCount()==0){
+        $go = 0;
+    }
 
-    $sql = "INSERT INTO test_procedure VALUES (:animal_name, :animal_vat, :date_timestamp, '1', 'blood')";
+    $sql = "INSERT INTO test_procedure VALUES (:animal_name, :animal_vat, :date_timestamp, :n, 'blood')";
 
     $sth = $connection->prepare($sql);
     $sth->bindParam(':animal_name', $animal_name);
     $sth->bindParam(':animal_vat', $animal_vat);
     $sth->bindParam(':date_timestamp', $date_timestamp);
-    #$sth->bindParam(':type', 'blood');
+    $sth->bindParam(':n', $n);
     $sth->execute();
+    if($sth->rowCount()==0){
+        $go = 0;
+    }
 
 
-    $sql = "INSERT INTO produced_indicator VALUES (:animal_name, :animal_vat, :date_timestamp, '1', 'White Blood Cell Count', :white_cells)";
+    $sql = "INSERT INTO produced_indicator VALUES (:animal_name, :animal_vat, :date_timestamp, :n, 'White Blood Cell Count', :white_cells)";
     $sth = $connection->prepare($sql);
     $sth->bindParam(':animal_name', $animal_name);
     $sth->bindParam(':animal_vat', $animal_vat);
     $sth->bindParam(':date_timestamp', $date_timestamp);
     $sth->bindParam(':white_cells', $white_cells);
+    $sth->bindParam(':n', $n);
     $sth->execute();
+    if($sth->rowCount()==0){
+        $go = 0;
+    }
 
     /*alterar no INDICATOR do create tables para conter o white_cells, etc...*/
 
 
-    $sql = "INSERT INTO produced_indicator VALUES (:animal_name, :animal_vat, :date_timestamp, '1', 'Number of Neutrophils', :neutrophils)";
+    $sql = "INSERT INTO produced_indicator VALUES (:animal_name, :animal_vat, :date_timestamp, :n, 'Number of Neutrophils', :neutrophils)";
     $sth = $connection->prepare($sql);
     $sth->bindParam(':animal_name', $animal_name);
     $sth->bindParam(':animal_vat', $animal_vat);
     $sth->bindParam(':date_timestamp', $date_timestamp);
     $sth->bindParam(':neutrophils', $neutrophils);
+    $sth->bindParam(':n', $n);
     $sth->execute();
+    if($sth->rowCount()==0){
+        $go = 0;
+    }
 
 
-    $sql = "INSERT INTO produced_indicator VALUES (:animal_name, :animal_vat, :date_timestamp, '1', 'Number of Lymphocytes', :lymphocytes)";
+    $sql = "INSERT INTO produced_indicator VALUES (:animal_name, :animal_vat, :date_timestamp, :n, 'Number of Lymphocytes', :lymphocytes)";
     $sth = $connection->prepare($sql);
     $sth->bindParam(':animal_name', $animal_name);
     $sth->bindParam(':animal_vat', $animal_vat);
     $sth->bindParam(':date_timestamp', $date_timestamp);
     $sth->bindParam(':lymphocytes', $lymphocytes);
+    $sth->bindParam(':n', $n);
     $sth->execute();
+    if($sth->rowCount()==0){
+        $go = 0;
+    }
 
 
-    $sql = "INSERT INTO produced_indicator VALUES (:animal_name, :animal_vat, :date_timestamp, '1', 'Number of Monocytes', :monocytes)";
+    $sql = "INSERT INTO produced_indicator VALUES (:animal_name, :animal_vat, :date_timestamp, :n, 'Number of Monocytes', :monocytes)";
     $sth = $connection->prepare($sql);
     $sth->bindParam(':animal_name', $animal_name);
     $sth->bindParam(':animal_vat', $animal_vat);
     $sth->bindParam(':date_timestamp', $date_timestamp);
     $sth->bindParam(':monocytes', $monocytes);
-
+    $sth->bindParam(':n', $n);
     $sth->execute();
+    if($sth->rowCount()==0){
+        $go = 0;
+    }
+
+    if($go == 0){
+        echo("Error during transaction.");
+        $connection->rollback();
+    }
+    else{
+        $connection->commit();
+        echo("Transaction done.");
+    }
 
 
     ?>

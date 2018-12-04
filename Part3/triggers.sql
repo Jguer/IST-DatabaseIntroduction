@@ -1,6 +1,7 @@
 drop trigger if exists animal_age;
 drop trigger if exists ensure_veterinary;
 drop trigger if exists ensure_veterinary;
+drop trigger if exists phone_number_trigger;
 drop function if exists number_consults;
 drop procedure if exists milligrams2centigrams;
 
@@ -63,7 +64,7 @@ for each row
 begin
 	declare number_phones integer default 0;
 	select count(*) into number_phones
-	from phone_number where phone = new.phone;
+	from phone_number where phone = new.phone and vat != new.vat;
     if number_phones != 0 then 
 		signal  sqlstate '45000'
         set MESSAGE_TEXT = "Phone Number already exists";

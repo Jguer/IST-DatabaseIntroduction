@@ -66,16 +66,6 @@
     if($sth->rowCount()>0){
       echo("<p>Consult sucessfully inserted.</p>");
     }
-    # INSERT DIAGNOSIS
-
-    #$sql = "INSERT INTO consult_diagnosis
-    #        VALUES ('1', '$animal_name', '$animal_vat', '$data')";
-    #$sth = $connection->prepare($sql);
-    #$connection->exec($sql);
-    #$sql = "INSERT INTO consult_diagnosis
-    #        VALUES ('1', 'ola', '122', '2000')";
-    #$sth = $connection->prepare($sql);
-    #$connection->exec($sql);
 
 
     $sql = "INSERT INTO consult_diagnosis
@@ -85,11 +75,6 @@
     $sth->bindParam(':animal_vat', $animal_vat);
     $sth->bindParam(':date_timestamp', $data);
     $sth->bindParam(':code', $code);
-    echo("<p>PARAMETERS</p>");
-    echo($code);
-    echo($animal_name);
-    echo($animal_vat);
-    echo($data);
     $sth->execute();
     if($sth->rowCount()>0){
       echo("<p>Diagnosis sucessfully inserted.</p>");
