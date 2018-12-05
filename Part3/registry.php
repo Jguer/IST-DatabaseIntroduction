@@ -14,19 +14,7 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="#">Vet Management Systems</a>
-      </div>
-      <ul class="nav navbar-nav">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="search.html">1 - Search and Insertion</a></li>
-        <li><a>2 - Consults</a></li>
-        <li class="active"><a>3 - Registry</a></li>
-      </ul>
-    </div>
-  </nav>
+  <?php include 'navbar3.php';?>
 
   <div>
     <h2>Insert the results of the test</h2>

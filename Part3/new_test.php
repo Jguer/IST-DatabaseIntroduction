@@ -14,19 +14,7 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="#">Vet Management Systems</a>
-      </div>
-      <ul class="nav navbar-nav">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="search.html">1 - Search and Insertion</a></li>
-        <li><a>2 - Consults</a></li>
-        <li class="active"><a>3 - Registry</a></li>
-      </ul>
-    </div>
-  </nav>
+  <?php include 'navbar3.php';?>
 
   <div>
     <h2>New Blood Test Insertion</h2>
@@ -58,7 +46,7 @@
 
     #get procedure num
     $sql = "SELECT count(distinct vet_procedure.num) as n from vet_procedure
-            where vet_procedure.name = '$animal_name' 
+            where vet_procedure.name = '$animal_name'
                     and vet_procedure.vat_owner = '$animal_vat'
                     and vet_procedure.date_timestamp = '$date_timestamp'";
     $result = $connection->query($sql);

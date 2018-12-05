@@ -14,19 +14,7 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="#">Vet Management Systems</a>
-      </div>
-      <ul class="nav navbar-nav">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="search.html">1 - Search and Insertion</a></li>
-        <li class="active"><a>2 - Consults</a></li>
-        <li><a>3 - Registry</a></li>
-      </ul>
-    </div>
-  </nav>
+  <?php include 'navbar3.php';?>
 
   <div>
     <h2>Consult Insertion</h2>
@@ -43,10 +31,6 @@
     $data = date("Y-m-d H:i:s");
     $veterinary_vat = (empty($_REQUEST['veterinary_vat']) ? '' : $_REQUEST['veterinary_vat']);
 
-    $host = "db.tecnico.ulisboa.pt";
-    $user = "***REMOVED***";
-    $pass = "***REMOVED***";
-    $dsn = "mysql:host=$host;dbname=$user";
     $connection = require_once('db.php');
     # INSERT CONSULT
     $sql = "INSERT INTO consult VALUES (:animal_name, :animal_vat, :date_timestamp,

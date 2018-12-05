@@ -1,7 +1,22 @@
 <!DOCTYPE html>
 <html>
 
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vet Management System</title>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+</head>
+
 <body>
+
+  <?php include 'navbar1.php';?>
+
   <form action="insert_animal.php" method="post">
     <table>
       <tr>
@@ -48,23 +63,23 @@
         <td>
           <select name="new_animal_species">
             <?php
-                            $connection = require_once('db.php');
-                            $sql = "SELECT species.name FROM species";
-                            $result = $connection->query($sql);
-                            if ($result == FALSE)
-                            {
-                            $info = $connection->errorInfo();
-                            echo("<p>Error: {$info[2]}</p>");
-                            exit();
-                            }
-                            foreach($result as $row)
-                            {
-                            $species_name = $row['name'];
-                            echo("<option value=\"$species_name\">$species_name</option>");
-                            }
+              $connection = require_once('db.php');
+              $sql = "SELECT species.name FROM species";
+              $result = $connection->query($sql);
+              if ($result == FALSE)
+              {
+                $info = $connection->errorInfo();
+                echo("<p>Error: {$info[2]}</p>");
+                exit();
+              }
+              foreach($result as $row)
+              {
+                $species_name = $row['name'];
+                echo("<option value=\"$species_name\">$species_name</option>");
+              }
 
-                             $connection = null;
-                        ?>
+              $connection = null;
+              ?>
           </select>
         </td>
       </tr>
