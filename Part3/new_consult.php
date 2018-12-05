@@ -113,6 +113,8 @@
     </table>
     <p><input type="submit" value="Insert Consult"></p>
   </form>
+  <?php include 'back.php';?>
+
 </body>
 
 </html>

@@ -92,6 +92,8 @@
     </table>
     <p><input type="submit" value="Insert Animal"></p>
   </form>
+  <?php include 'back.php';?>
+
 </body>
 
 </html>
