@@ -29,7 +29,7 @@
   </nav>
 
   <div>
-    <h2>Animal Insertion</h2>
+    <h2>Consult Insertion</h2>
     <?php
     $animal_name = (empty($_REQUEST['animal_name']) ? '' : $_REQUEST['animal_name']);
     $animal_vat = (empty($_REQUEST['animal_vat']) ? '' : $_REQUEST['animal_vat']);

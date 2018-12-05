@@ -29,7 +29,7 @@
   </nav>
 
   <div>
-    <h2>Search results</h2>
+    <h2>New Blood Test Insertion</h2>
     <?php
 
     $assist_vat = (empty($_REQUEST['assist_vat']) ? '' : $_REQUEST['assist_vat']);

@@ -30,7 +30,7 @@
 
 
   <div>
-    <h2>Search results</h2>
+    <h2>Veterinary Consults</h2>
     <?php
     $animal_vat = (empty($_REQUEST['animal_vat']) ? '' : $_REQUEST['animal_vat']);
     $date_timestamp = (empty($_REQUEST['date_timestamp']) ? '' : $_REQUEST['date_timestamp']);
