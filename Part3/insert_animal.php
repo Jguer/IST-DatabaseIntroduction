@@ -90,6 +90,9 @@
     if($sth->rowCount()>0){
       echo("<p>Animal sucessfully inserted.</p>");
     }
+    else{
+      echo("<p>Error during animal insertion.</p>");
+    }
     $connection = null;
 
     ?>

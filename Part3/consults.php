@@ -22,6 +22,7 @@
     $animal_vat = (empty($_REQUEST['animal_vat']) ? '' : $_REQUEST['animal_vat']);
     $client_vat = (empty($_REQUEST['client_vat']) ? '' : $_REQUEST['client_vat']);
     $animal_name = (empty($_REQUEST['animal_name']) ? '' : $_REQUEST['animal_name']);
+    $client_exists = (empty($_REQUEST['client_exists']) ? '' : $_REQUEST['client_exists']);
     $connection = require_once('db.php');
 
     $sql = "SELECT consult.date_timestamp as date_timestamp
@@ -62,14 +63,16 @@
       }
       echo("</table>\n");
 
-      echo("<br>");
-      echo("<a href=\"new_consult.php?animal_name=");
-      echo($animal_name);
-      echo("&animal_vat=");
-      echo($animal_vat);
-      echo("&client_vat=");
-      echo($client_vat);
-      echo("\">Insert New Consult</a>");
+      if($client_exists != 0){
+        echo("<br>");
+        echo("<a href=\"new_consult.php?animal_name=");
+        echo($animal_name);
+        echo("&animal_vat=");
+        echo($animal_vat);
+        echo("&client_vat=");
+        echo($client_vat);
+        echo("\">Insert New Consult</a>");
+      }
     $connection = NULL;
     ?>
   </div>

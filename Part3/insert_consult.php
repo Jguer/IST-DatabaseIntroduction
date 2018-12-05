@@ -30,6 +30,7 @@
     $code = (empty($_REQUEST['diagnostic_code']) ? '' : $_REQUEST['diagnostic_code']);
     $data = date("Y-m-d H:i:s");
     $veterinary_vat = (empty($_REQUEST['veterinary_vat']) ? '' : $_REQUEST['veterinary_vat']);
+    $go = 0;
 
     $connection = require_once('db.php');
     # INSERT CONSULT
@@ -50,6 +51,9 @@
     if($sth->rowCount()>0){
       echo("<p>Consult sucessfully inserted.</p>");
     }
+    else{
+      echo("<p>Error during consult insertion.</p>"); 
+    }
 
 
     $sql = "INSERT INTO consult_diagnosis
@@ -62,17 +66,23 @@
     $sth->execute();
     if($sth->rowCount()>0){
       echo("<p>Diagnosis sucessfully inserted.</p>");
+      $go = 1;
+    }
+    else{
+      echo("<p>Error during diagnosis insertion.</p>"); 
+      $go = 0;
     }
 
-
-      echo("<br>");
-      echo("<a href=\"registry.php?animal_name=");
-      echo($animal_name);
-      echo("&animal_vat=");
-      echo($animal_vat);
-      echo("&date_timestamp=");
-      echo($data);
-      echo("\">Insert New Blood Test</a>");
+      if($go == 1){
+        echo("<br>");
+        echo("<a href=\"registry.php?animal_name=");
+        echo($animal_name);
+        echo("&animal_vat=");
+        echo($animal_vat);
+        echo("&date_timestamp=");
+        echo($data);
+        echo("\">Insert New Blood Test</a>");
+      }
 
     $connection = null;
 

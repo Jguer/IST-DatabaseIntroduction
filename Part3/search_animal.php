@@ -67,6 +67,8 @@
         echo($row['vat']);
         echo("&client_vat=");
         echo($client_vat);
+        echo("&client_exists=");
+        echo($result_client->rowCount());
         echo("\">");
         echo($row['animal_name']);
         echo("</a></td>\n");
