@@ -27,10 +27,6 @@
     $animal_age = date("Y") - $animal_birth_year;
     $owner_name = (empty($_REQUEST['new_client_name']) ? '' : $_REQUEST['new_client_name']);
 
-    $host = "db.tecnico.ulisboa.pt";
-    $user = "***REMOVED***";
-    $pass = "***REMOVED***";
-    $dsn = "mysql:host=$host;dbname=$user";
     $connection = require_once('db.php');
 
     $sql = "SELECT *
